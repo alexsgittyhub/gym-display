@@ -1,30 +1,100 @@
 {
-  "date": "2025-11-30",
-  "title": "Test Workout",
-  "notes": "This is a test to verify the display is working.",
-  "warmup": {
-    "description": "Easy warmup",
-    "items": [
-      "5 min easy walk",
-      "10 air squats"
-    ]
-  },
-  "blocks": [
-    {
-      "id": "blk_test",
-      "name": "Test Block",
-      "type": "strength",
-      "rest_seconds": 60,
-      "instructions": "Do this block to verify layout.",
-      "exercises": [
-        {
-          "name": "Test Exercise",
-          "sets": 3,
-          "reps": "10",
-          "load": "Bodyweight",
-          "notes": "Should show up with a check circle."
-        }
-      ]
-    }
-  ]
+"date": "2025-11-30",
+"title": "35 Minute Upper Body and Core",
+"notes": "Warmup run into upper push pull with an arm burner and core finisher. RPE about 7 to 8.",
+"warmup": {
+"description": "5 minute progressive run warmup",
+"items": [
+"Minute 1 easy jog",
+"Minute 2 steady",
+"Minute 3 faster",
+"Minute 4 easy",
+"Minute 5 moderate"
+]
+},
+"blocks": [
+{
+"id": "A",
+"name": "Upper Strength Push Pull",
+"type": "strength",
+"rest_seconds": 60,
+"instructions": "Move steadily through each superset.",
+"exercises": [
+{
+"name": "Dumbbell Bench Press",
+"sets": 3,
+"reps": "8 to 10",
+"load": "RPE 7 to 8",
+"notes": null
+},
+{
+"name": "Bent Over Dumbbell Row",
+"sets": 3,
+"reps": "8 to 10",
+"load": "RPE 7 to 8",
+"notes": null
+}
+]
+},
+{
+"id": "B",
+"name": "Arm Burner",
+"type": "strength",
+"rest_seconds": 45,
+"instructions": "Minimal rest. Cycle twice.",
+"exercises": [
+{
+"name": "Dumbbell Biceps Curls",
+"sets": 2,
+"reps": "12 to 15",
+"load": "RPE 8",
+"notes": null
+},
+{
+"name": "Triceps Dips on Bench",
+"sets": 2,
+"reps": "12 to 15",
+"load": null,
+"notes": null
+},
+{
+"name": "Hammer Curls",
+"sets": 2,
+"reps": "10",
+"load": "RPE 8",
+"notes": null
+}
+]
+},
+{
+"id": "C",
+"name": "Core Finisher",
+"type": "core",
+"rest_seconds": 30,
+"instructions": "Two rounds. Move briskly.",
+"exercises": [
+{
+"name": "Plank",
+"sets": 2,
+"reps": "45 seconds",
+"load": null,
+"notes": null
+},
+{
+"name": "Russian Twists",
+"sets": 2,
+"reps": "20",
+"load": "light dumbbell",
+"notes": null
+},
+{
+"name": "Dead Bugs",
+"sets": 2,
+"reps": "10 each side",
+"load": null,
+"notes": null
+}
+]
+}
+]
 }
