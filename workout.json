@@ -1,100 +1,81 @@
 {
-"date": "2025-11-30",
-"title": "35 Minute Upper Body and Core",
-"notes": "Warmup run into upper push pull with an arm burner and core finisher. RPE about 7 to 8.",
-"warmup": {
-"description": "5 minute progressive run warmup",
-"items": [
-"Minute 1 easy jog",
-"Minute 2 steady",
-"Minute 3 faster",
-"Minute 4 easy",
-"Minute 5 moderate"
-]
-},
-"blocks": [
-{
-"id": "A",
-"name": "Upper Strength Push Pull",
-"type": "strength",
-"rest_seconds": 60,
-"instructions": "Move steadily through each superset.",
-"exercises": [
-{
-"name": "Dumbbell Bench Press",
-"sets": 3,
-"reps": "8 to 10",
-"load": "RPE 7 to 8",
-"notes": null
-},
-{
-"name": "Bent Over Dumbbell Row",
-"sets": 3,
-"reps": "8 to 10",
-"load": "RPE 7 to 8",
-"notes": null
-}
-]
-},
-{
-"id": "B",
-"name": "Arm Burner",
-"type": "strength",
-"rest_seconds": 45,
-"instructions": "Minimal rest. Cycle twice.",
-"exercises": [
-{
-"name": "Dumbbell Biceps Curls",
-"sets": 2,
-"reps": "12 to 15",
-"load": "RPE 8",
-"notes": null
-},
-{
-"name": "Triceps Dips on Bench",
-"sets": 2,
-"reps": "12 to 15",
-"load": null,
-"notes": null
-},
-{
-"name": "Hammer Curls",
-"sets": 2,
-"reps": "10",
-"load": "RPE 8",
-"notes": null
-}
-]
-},
-{
-"id": "C",
-"name": "Core Finisher",
-"type": "core",
-"rest_seconds": 30,
-"instructions": "Two rounds. Move briskly.",
-"exercises": [
-{
-"name": "Plank",
-"sets": 2,
-"reps": "45 seconds",
-"load": null,
-"notes": null
-},
-{
-"name": "Russian Twists",
-"sets": 2,
-"reps": "20",
-"load": "light dumbbell",
-"notes": null
-},
-{
-"name": "Dead Bugs",
-"sets": 2,
-"reps": "10 each side",
-"load": null,
-"notes": null
-}
-]
-}
-]
+  "date": "2025-11-30",
+  "title": "Upper Body Strength + Conditioning",
+  "notes": "Push/pull balance; moderate intensity; focus clean reps and smooth tempo.",
+  "warmup": {
+    "description": "General + shoulder activation",
+    "items": [
+      "10 max band pull-aparts",
+      "10 – burnout push-ups",
+      "10 – KB halos each direction",
+      "10 scap push-ups + 10 PVC pass-throughs"
+    ]
+  },
+  "blocks": [
+    {
+      "id": "A",
+      "name": "Main Strength Superset",
+      "type": "Superset",
+      "rest_seconds": 90,
+      "instructions": "Alternate A1/A2. Rest only after both are complete.",
+      "exercises": [
+        {
+          "name": "Barbell Bench Press",
+          "sets": 4,
+          "reps": "6-8",
+          "load": "RPE 7-8",
+          "notes": "Controlled eccentric; slight pause at chest."
+        },
+        {
+          "name": "Pull-Up or Weighted Pull-Up",
+          "sets": 4,
+          "reps": "5-8",
+          "load": "Bodyweight or light plate",
+          "notes": "Full range; add weight if all sets unbroken."
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "name": "Accessory Volume",
+      "type": "Circuit",
+      "rest_seconds": 60,
+      "instructions": "Move briskly through all three, rest 1 min, repeat 3.",
+      "exercises": [
+        {
+          "name": "Seated DB Shoulder Press",
+          "sets": 3,
+          "reps": "10-12",
+          "load": "RPE 7",
+          "notes": "Avoid lockout; constant tension."
+        },
+        {
+          "name": "Chest-Supported DB Row",
+          "sets": 3,
+          "reps": "10-12",
+          "load": "RPE 8",
+          "notes": "Squeeze shoulder blades at top."
+        },
+        {
+          "name": "DB Hammer Curl + Triceps Rope Pushdagn (or banded extension)",
+          "sets": 3,
+          "reps": "10-12 each",
+          "load": "Moderate",
+          "notes": "Continuous tension; no rest between arms."
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Optional Finisher",
+      "type": "Metcon",
+      "rest_seconds": null,
+      "instructions": "10-min AMRAP - move steady, smooth pace.",
+      "exercises": [
+        {"name": "10 DB Push Press (45/25 lb)", "sets": null, "reps": null, "load": null, "notes": null},
+        {"name": "10 Renegade Rows (each side)", "sets": null, "reps": null, "load": null, "notes": null},
+        {"name": "10 Burpees", "sets": null, "reps": null, "load": null, "notes": null}
+      ]
+    }
+  ]
 }
