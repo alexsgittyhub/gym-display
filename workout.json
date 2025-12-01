@@ -1,7 +1,7 @@
 {
   "date": "2025-11-30",
   "title": "Press Hard or Go Home",
-  "notes": "Shoulder & Triceps pump session with a core destroyer. Focus and tempo driven.",
+  "notes": "Shoulder & Triceps pump session with a core destroyer. Added outside sprints for an extra power touch.",
   "warmup": {
     "description": "Incline run + dynamic activation",
     "items": [
@@ -26,11 +26,21 @@
       ]
     },
     {
+      "id": "SPrints",
+      "name": "Outside Sprint Set",
+      "type": "conditioning",
+      "rest_seconds": 60,
+      "instructions": "3-5s repeats, full sprints, focus on recovery.",
+      "exercises": [
+        {"name": "150ft Sprint", "sets": 5, "reps": "20", "load": null, "notes": "Maximum effort each rep"}
+      ]
+    },
+    {
       "id": "B",
       "name": "The Corepocalypse",
       "type": "conditioning",
       "rest_seconds": null,
-      "instructions": "Asmany rounds as possible in 7 minutes.",
+      "instructions": "Asmany rounds as reps in 7 minutes.",
       "exercises": [
         {"name": "Sit-ups", "sets": null, "reps": "15", "load": null, "notes": null},
         {"name": "Hanging Knee Raises", "sets": null, "reps": 10, "load": null, "notes": null},
