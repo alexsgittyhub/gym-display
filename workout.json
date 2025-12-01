@@ -1,59 +1,42 @@
 {
   "date": "2025-11-30",
-  "title": "Full Body Strength + Conditioning",
-  "notes": "Balanced barbell + bodyweight session for strength, power, and conditioning. Moderate load, RPE 7-“8.",
+  "title": "Press Hard or Go Home",
+  "notes": "Shoulder & Triceps pump session with a core destroyer. Focus and tempo driven.",
   "warmup": {
-    "description": "General + movement prep",
+    "description": "Incline run + dynamic activation",
     "items": [
-      "3 rounds: 10 air squats, 10 push-ups, 10 band pull-aparts, 30s plank",
-      "Then: 2 rounds 10 empty-bar RDL + 10 front squats + 10 press"
+      "1 mile run at 5% -incline, build up heat last 0.25",
+      "Arm circles and band pull-aparts x20",
+      "Scap push-ups x15",
+      "Low-load OherHead Press x10"
     ]
   },
   "blocks": [
     {
       "id": "A",
-      "name": "Barbell Complex – Strength Flow",
+      "name": "Shoulder & Triceps Annihilation",
       "type": "strength",
-      "rest_seconds": 120,
-      "instructions": "Complete all movements unbroken if possible; rest between rounds.",
+      "rest_seconds": null,
+      "instructions": "Alternate through the moves, rest only as needed.",
       "exercises": [
-        { "name": "Deadlift", "sets": 4, "reps": "5", "load": "70%-75% OR 1RM", "notes": "Controlled tempo" },
-        { "name": "Front Squat", "sets": 4, "reps": "5", "load": "70% 1RM", "notes": "Maintain posture" },
-        { "name": "Push Press", "sets": 4, "reps": "5", "load": "RPE 7", "notes": "Explosive drive"}
+        {"name": "Barbell Overhead Press", "sets": 5, "reps": 8, "load": "95 lbs", "notes": null},
+        {"name": "Close-Grip Bench Press", "sets": 4, "reps": 10, "load": "135 lbs", "notes": null},
+        {"name": "Dumbbell Lateral Raise", "sets": 4, "reps": 15, "load": "25 lbs each", "notes": null},
+        {"name": "Dumbbel Overhead Triceps Extension", "sets": 3, "reps": 12, "load": "40 lb DB", "notes": null}
       ]
     },
     {
       "id": "B",
-      "name": "Superset – Pull + Core",
-      "type": "superset",
-      "rest_seconds": 60,
-      "instructions": "Alternate movements; rest 60s after each pair.",
-      "exercises": [
-        { "name": "Pull-Ups (weighted if able)", "sets": 4, "reps": "max 6-8", "load": "bodyweight or add 10-20 lb", "notes": "Full ROM" },
-        { "name": "Hanging Leg Raise", "sets": 4, "reps": "10-12", "load": null, "notes": "Control descent"}
-      ]
-    },
-    {
-      "id": "C",
-      "name": "Metcon – 12 Min AMRAP ",
+      "name": "The Corepocalypse",
       "type": "conditioning",
       "rest_seconds": null,
-      "instructions": "12 min AMRAP – steady pace, quality movement.",
+      "instructions": "Asmany rounds as possible in 7 minutes.",
       "exercises": [
-        { "name": "10 Kettlebell Swings (53/35 lb)", "sets": null, "reps": null, "load": null, "notes": null },
-        { "name": "10 Dumbbell Thrusters (2“35/25 lb)", "sets": null, "reps": null, "load": null, "notes": null },
-        { "name": "200 m Run or 45s Treadmill", "sets": null, "reps": null, "load": null, "notes": null }
-      ]
-    },
-    {
-      "id": "D",
-      "name": "Cooldown",
-      "type": "recovery",
-      "rest_seconds": null,
-      "instructions": "Focus on breathing and mobility.",
-      "exercises": [
-        { "name": "90/90 Hip Stretch", "sets": 2, "reps": "30s/side", "load": null, "notes": null },
-        { "name": "Lat/Chest Stretch", "sets": 2, "reps": "30s", "load": null, "notes": null }
+        {"name": "Sit-ups", "sets": null, "reps": "15", "load": null, "notes": null},
+        {"name": "Hanging Knee Raises", "sets": null, "reps": 10, "load": null, "notes": null},
+        {"name": "Russian Twists", "sets": null, "reps": "20 (10/side)", "load": null, "notes": null},
+        {"name": "Dumbbell Plank Drags", "sets": null, "reps": 10, "load": "25 lb", "notes": null},
+        {"name": "Forearm Plank", "sets": null, "reps": "30s", "load": null, "notes": null}
       ]
     }
   ]
