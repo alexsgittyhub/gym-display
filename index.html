@@ -1,667 +1,469 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Gym Workout Display</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Gym Display</title>
+    <style>
+        :root {
+            --bg-color: #000000;
+            --card-bg: #121212;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #00ff9d; /* Neon Green */
+            --accent-dim: rgba(0, 255, 157, 0.1);
+            --border: #333333;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-      background: #000000;
-      color: #f5f5f5;
-      padding: 16px;
-      line-height: 1.4;
-      -webkit-font-smoothing: antialiased;
-      user-select: none;
-    }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding-bottom: 64px;
-    }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            padding-bottom: 120px; /* Extra space for floating button */
+        }
 
-    header {
-      margin-bottom: 16px;
-    }
+        /* Header */
+        header {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
 
-    h1 {
-      font-size: 2.2rem;
-      margin-bottom: 4px;
-    }
+        h1 { margin: 0; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; }
+        .meta { font-size: 0.9rem; color: var(--text-secondary); margin-top: 5px; }
 
-    .date {
-      font-size: 0.95rem;
-      opacity: 0.85;
-    }
+        /* Refresh Button */
+        .refresh-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-left: 10px;
+        }
 
-    .notes {
-      margin-top: 6px;
-      font-size: 1rem;
-      opacity: 0.9;
-    }
+        /* Warmup Section */
+        .warmup {
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+        .warmup h2 { font-size: 1.2rem; color: var(--accent); margin-top: 0; margin-bottom: 10px; }
+        .warmup-item { color: var(--text-secondary); margin-bottom: 5px; font-size: 1rem; }
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-      gap: 8px;
-    }
+        /* Blocks (Accordion) */
+        .block {
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .block-header {
+            padding: 20px;
+            background: var(--bg-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .block-title { font-size: 1.4rem; font-weight: 600; }
+        .block-meta { font-size: 0.9rem; color: var(--text-secondary); }
+        .chevron { transition: transform 0.2s; }
+        .block.open .chevron { transform: rotate(180deg); }
 
-    .controls {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
+        .block-content {
+            display: none;
+            padding: 0 20px 20px 20px;
+            background: var(--bg-color);
+        }
+        .block.open .block-content { display: block; }
 
-    .btn {
-      border-radius: 999px;
-      border: 1px solid #333;
-      background: #111;
-      color: #f5f5f5;
-      padding: 4px 10px;
-      font-size: 0.8rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-    }
+        /* Rest Timer Button */
+        .timer-trigger {
+            background: var(--accent-dim);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            font-weight: bold;
+        }
 
-    .btn-small {
-      font-size: 0.75rem;
-      padding: 3px 8px;
-    }
+        /* Exercises */
+        .exercise {
+            background: var(--card-bg);
+            margin-bottom: 12px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    .btn-primary {
-      background: #166534;
-      border-color: #22c55e;
-      color: #e5ffe9;
-    }
+        .exercise.completed {
+            border-color: var(--accent);
+            background: #0a1a12;
+        }
+        
+        .exercise.completed .ex-name {
+            color: var(--accent);
+            text-decoration: line-through;
+        }
 
-    .btn-outline {
-      background: transparent;
-    }
+        .ex-info { flex-grow: 1; padding-right: 10px; }
+        .ex-header { display: flex; justify-content: space-between; align-items: baseline; }
+        .ex-name { font-size: 1.3rem; font-weight: 600; margin-bottom: 5px; }
+        .ex-details { font-size: 1.1rem; color: var(--text-secondary); }
+        .ex-load { color: var(--accent); font-weight: 600; margin-left: 10px; white-space: nowrap; }
+        .ex-notes { font-size: 0.95rem; color: #888; margin-top: 5px; font-style: italic; }
 
-    .status {
-      font-size: 0.75rem;
-      opacity: 0.7;
-    }
+        /* Logging Input */
+        .log-input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .log-input {
+            background: #222;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px 5px;
+            width: 70px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .log-input:focus {
+            border-color: var(--accent);
+            outline: none;
+            background: #333;
+        }
+        .log-label {
+            font-size: 0.7rem;
+            color: #666;
+            margin-top: 4px;
+        }
 
-    .section-title {
-      margin-top: 16px;
-      margin-bottom: 4px;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.9;
-    }
+        /* Error Box */
+        #error-container {
+            display: none;
+            padding: 20px;
+            color: #ff4444;
+            background: rgba(255, 68, 68, 0.1);
+            margin: 20px;
+            border-radius: 8px;
+            border: 1px solid #ff4444;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
 
-    .card {
-      background: #050509;
-      border-radius: 14px;
-      padding: 12px 14px;
-      margin-top: 8px;
-      border: 1px solid #1f2933;
-    }
+        /* Full Screen Timer Overlay */
+        #timer-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+        #timer-display { font-size: 6rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+        #timer-controls { margin-top: 20px; }
+        .timer-btn {
+            padding: 15px 30px; font-size: 1.2rem; border-radius: 50px;
+            border: none; background: #333; color: white; margin: 0 10px;
+            cursor: pointer;
+        }
+        .btn-close { background: #ff4444; color: white; }
 
-    .warmup-desc {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      margin-bottom: 4px;
-    }
+        /* Floating Copy Button */
+        #copy-logs-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 20px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,255,157,0.4);
+            cursor: pointer;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.1s;
+        }
+        #copy-logs-btn:active { transform: scale(0.95); }
 
-    ul {
-      list-style: disc;
-      margin-left: 18px;
-      font-size: 0.9rem;
-    }
-
-    /* ACCORDION BLOCKS */
-
-    .block-card {
-      margin-top: 8px;
-      overflow: hidden;
-      transition: border-color 0.2s ease, background 0.2s ease;
-    }
-
-    .block-card.active {
-      border-color: #22c55e;
-      background: #020617;
-    }
-
-    .block-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-    }
-
-    .block-header-main {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .block-name {
-      font-size: 1.05rem;
-      font-weight: 600;
-    }
-
-    .block-type {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      opacity: 0.7;
-    }
-
-    .block-instructions {
-      font-size: 0.85rem;
-      opacity: 0.85;
-      margin-top: 4px;
-    }
-
-    .block-header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 4px;
-    }
-
-    .rest-label {
-      font-size: 0.75rem;
-      opacity: 0.8;
-    }
-
-    .block-body {
-      margin-top: 8px;
-      border-top: 1px solid #111827;
-      padding-top: 6px;
-      display: none;
-    }
-
-    .block-card.active .block-body {
-      display: block;
-    }
-
-    /* EXERCISES */
-
-    .exercise {
-      padding: 6px 0;
-      border-bottom: 1px solid #111827;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-      cursor: pointer;
-      transition: opacity 0.15s ease;
-    }
-
-    .exercise:last-child {
-      border-bottom: none;
-    }
-
-    .exercise-left {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .exercise-name {
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .exercise-meta {
-      font-size: 0.85rem;
-      opacity: 0.9;
-      margin-top: 1px;
-    }
-
-    .exercise-notes {
-      font-size: 0.8rem;
-      opacity: 0.75;
-      margin-top: 2px;
-    }
-
-    .exercise-right {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px;
-      flex-shrink: 0;
-    }
-
-    .check-circle {
-      height: 18px;
-      width: 18px;
-      border-radius: 999px;
-      border: 2px solid #4b5563;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-      color: #22c55e;
-      opacity: 0;
-      transition: opacity 0.15s ease, border-color 0.15s ease;
-    }
-
-    .exercise.completed {
-      opacity: 0.45;
-    }
-
-    .exercise.completed .check-circle {
-      opacity: 1;
-      border-color: #22c55e;
-    }
-
-    /* TIMER OVERLAY */
-
-    #timer-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.92);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      flex-direction: column;
-      gap: 16px;
-      text-align: center;
-      padding: 20px;
-    }
-
-    #timer-overlay.active {
-      display: flex;
-    }
-
-    #timer-label {
-      font-size: 1.2rem;
-      opacity: 0.9;
-    }
-
-    #timer-value {
-      font-size: 4.2rem;
-      font-weight: 700;
-    }
-
-    #timer-subtext {
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-
-    .timer-controls {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    .error {
-      margin-top: 10px;
-      color: #fecaca;
-      font-size: 0.85rem;
-    }
-  </style>
+    </style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="top-bar">
-      <div id="status-text" class="status">Loading workout...</div>
-      <div class="controls">
-        <button class="btn btn-outline btn-small" onclick="loadWorkout(true)">Refresh</button>
-        <button class="btn btn-outline btn-small" onclick="requestWakeLock()">Keep Awake</button>
-      </div>
-    </div>
 
     <header>
-      <h1 id="title">Workout</h1>
-      <div id="date" class="date"></div>
-      <div id="notes" class="notes"></div>
+        <div>
+            <div class="meta" id="date-display">Loading...</div>
+            <h1 id="title-display">...</h1>
+        </div>
+        <button class="refresh-btn" onclick="loadWorkout()">Refresh</button>
     </header>
 
-    <section id="warmup-section"></section>
-    <section id="blocks-section"></section>
+    <div id="error-container"></div>
 
-    <div id="error" class="error"></div>
-  </div>
-
-  <!-- TIMER OVERLAY -->
-  <div id="timer-overlay">
-    <div id="timer-label">Rest</div>
-    <div id="timer-value">00:00</div>
-    <div id="timer-subtext"></div>
-    <div class="timer-controls">
-      <button class="btn btn-primary btn-small" onclick="stopTimer()">Done</button>
-      <button class="btn btn-outline btn-small" onclick="stopTimer()">Cancel</button>
+    <div id="app-content">
+        <!-- Content injected here -->
     </div>
-  </div>
+    
+    <button id="copy-logs-btn" onclick="copyLogsToClipboard()">
+        <span>📋</span> Copy Results for ChatGPT
+    </button>
 
-  <script>
-    const COMPLETION_PREFIX = "gymDisplay_v2_";
-    let wakeLockSentinel = null;
-    let currentWorkoutDate = null;
-    let timerInterval = null;
-    let timerRemaining = 0;
+    <!-- Timer Overlay -->
+    <div id="timer-overlay">
+        <div id="timer-display">00:00</div>
+        <div id="timer-controls">
+            <button class="timer-btn btn-close" onclick="closeTimer()">Close</button>
+        </div>
+    </div>
 
-    /* ------------------------------
-       LOAD WORKOUT.JSON
-    ------------------------------ */
+    <script>
+        // --- CONFIG ---
+        const DATA_URL = 'workout.json';
+        
+        // --- APP STATE ---
+        let currentTimer = null;
 
-    async function loadWorkout(showStatus) {
-      const status = document.getElementById("status-text");
-      const error = document.getElementById("error");
-      error.textContent = "";
-
-      if (showStatus) status.textContent = "Refreshing...";
-
-      try {
-        const res = await fetch("workout.json?t=" + Date.now());
-        if (!res.ok) throw new Error("HTTP " + res.status);
-
-        const data = await res.json();
-        renderWorkout(data);
-
-        status.textContent = "Workout loaded";
-      } catch (err) {
-        console.error(err);
-        error.textContent = "Error loading workout.json";
-        status.textContent = "Load error";
-      }
-    }
-
-    /* ------------------------------
-       RENDER WORKOUT
-    ------------------------------ */
-
-    function renderWorkout(data) {
-      const titleEl = document.getElementById("title");
-      const dateEl = document.getElementById("date");
-      const notesEl = document.getElementById("notes");
-      const warmupSection = document.getElementById("warmup-section");
-      const blocksSection = document.getElementById("blocks-section");
-
-      currentWorkoutDate = data.date || "unknown";
-
-      titleEl.textContent = data.title || "Workout";
-      dateEl.textContent = data.date ? "Date: " + data.date : "";
-      notesEl.textContent = data.notes || "";
-
-      warmupSection.innerHTML = "";
-      blocksSection.innerHTML = "";
-
-      /* WARMUP */
-      if (data.warmup) {
-        const warmTitle = document.createElement("h2");
-        warmTitle.className = "section-title";
-        warmTitle.textContent = "Warmup";
-        warmupSection.appendChild(warmTitle);
-
-        const warmCard = document.createElement("div");
-        warmCard.className = "card";
-
-        if (data.warmup.description) {
-          const desc = document.createElement("div");
-          desc.className = "warmup-desc";
-          desc.textContent = data.warmup.description;
-          warmCard.appendChild(desc);
-        }
-
-        if (Array.isArray(data.warmup.items)) {
-          const ul = document.createElement("ul");
-          data.warmup.items.forEach(i => {
-            const li = document.createElement("li");
-            li.textContent = i;
-            ul.appendChild(li);
-          });
-          warmCard.appendChild(ul);
-        }
-
-        warmupSection.appendChild(warmCard);
-      }
-
-      /* MAIN WORK BLOCKS */
-      if (Array.isArray(data.blocks)) {
-        const blocksTitle = document.createElement("h2");
-        blocksTitle.className = "section-title";
-        blocksTitle.textContent = "Main Work";
-        blocksSection.appendChild(blocksTitle);
-
-        data.blocks.forEach((block, idx) => {
-          const blockId = block.id || "block_" + idx;
-          const card = document.createElement("div");
-          card.className = "card block-card";
-          card.dataset.blockId = blockId;
-
-          /* HEADER */
-          const header = document.createElement("div");
-          header.className = "block-header";
-
-          const headerMain = document.createElement("div");
-          headerMain.className = "block-header-main";
-
-          const name = document.createElement("div");
-          name.className = "block-name";
-          name.textContent = block.name || "Block";
-
-          const type = document.createElement("div");
-          type.className = "block-type";
-          type.textContent = block.type || "";
-
-          headerMain.appendChild(name);
-          headerMain.appendChild(type);
-
-          const headerRight = document.createElement("div");
-          headerRight.className = "block-header-right";
-
-          if (block.rest_seconds) {
-            const restLabel = document.createElement("div");
-            restLabel.className = "rest-label";
-            restLabel.textContent = `${block.rest_seconds} sec rest`;
-            headerRight.appendChild(restLabel);
-
-            const restBtn = document.createElement("button");
-            restBtn.className = "btn btn-outline btn-small";
-            restBtn.textContent = "Start Rest";
-            restBtn.onclick = (e) => {
-              e.stopPropagation();
-              startTimer(block.rest_seconds, block.name);
-            };
-            headerRight.appendChild(restBtn);
-          }
-
-          header.appendChild(headerMain);
-          header.appendChild(headerRight);
-          card.appendChild(header);
-
-          /* INSTRUCTIONS */
-          if (block.instructions) {
-            const inst = document.createElement("div");
-            inst.className = "block-instructions";
-            inst.textContent = block.instructions;
-            card.appendChild(inst);
-          }
-
-          /* BODY */
-          const body = document.createElement("div");
-          body.className = "block-body";
-
-          (block.exercises || []).forEach((ex, exIdx) => {
-            const exDiv = document.createElement("div");
-            exDiv.className = "exercise";
-            exDiv.dataset.blockId = blockId;
-            exDiv.dataset.exerciseIndex = exIdx;
-
-            const left = document.createElement("div");
-            left.className = "exercise-left";
-
-            const exName = document.createElement("div");
-            exName.className = "exercise-name";
-            exName.textContent = ex.name || "";
-            left.appendChild(exName);
-
-            const meta = [];
-            if (ex.sets) meta.push(`${ex.sets} sets`);
-            if (ex.reps) meta.push(`${ex.reps} reps`);
-            if (ex.load) meta.push(ex.load);
-
-            if (meta.length) {
-              const exMeta = document.createElement("div");
-              exMeta.className = "exercise-meta";
-              exMeta.textContent = meta.join(" · ");
-              left.appendChild(exMeta);
-            }
-
-            if (ex.notes) {
-              const exNotes = document.createElement("div");
-              exNotes.className = "exercise-notes";
-              exNotes.textContent = ex.notes;
-              left.appendChild(exNotes);
-            }
-
-            const right = document.createElement("div");
-            right.className = "exercise-right";
-            const circle = document.createElement("div");
-            circle.className = "check-circle";
-            circle.textContent = "✓";
-            right.appendChild(circle);
-
-            exDiv.appendChild(left);
-            exDiv.appendChild(right);
-
-            exDiv.onclick = () => toggleExercise(exDiv);
-            if (isCompleted(currentWorkoutDate, blockId, exIdx)) {
-              exDiv.classList.add("completed");
-            }
-
-            body.appendChild(exDiv);
-          });
-
-          card.appendChild(body);
-
-          header.onclick = () => activateBlock(blockId);
-          blocksSection.appendChild(card);
+        // --- INIT ---
+        document.addEventListener('DOMContentLoaded', () => {
+            loadWorkout();
+            setupWakeLock();
         });
 
-        const first = blocksSection.querySelector(".block-card");
-        if (first) first.classList.add("active");
-      }
-    }
-
-    /* ------------------------------
-       COMPLETION STORAGE
-    ------------------------------ */
-
-    function keyFor(date, block, exIdx) {
-      return `${COMPLETION_PREFIX}${date}_${block}_${exIdx}`;
-    }
-
-    function isCompleted(date, block, exIdx) {
-      return localStorage.getItem(keyFor(date, block, exIdx)) === "1";
-    }
-
-    function toggleExercise(div) {
-      const block = div.dataset.blockId;
-      const idx = div.dataset.exerciseIndex;
-      const key = keyFor(currentWorkoutDate, block, idx);
-
-      const done = div.classList.toggle("completed");
-      if (done) localStorage.setItem(key, "1");
-      else localStorage.removeItem(key);
-    }
-
-    function activateBlock(blockId) {
-      document.querySelectorAll(".block-card").forEach(c => {
-        c.classList.toggle("active", c.dataset.blockId === blockId);
-      });
-    }
-
-    /* ------------------------------
-       REST TIMER
-    ------------------------------ */
-
-    function startTimer(seconds, label) {
-      const overlay = document.getElementById("timer-overlay");
-      const value = document.getElementById("timer-value");
-      const labelEl = document.getElementById("timer-label");
-      const sub = document.getElementById("timer-subtext");
-
-      if (timerInterval) clearInterval(timerInterval);
-      timerRemaining = seconds;
-
-      labelEl.textContent = label;
-      sub.textContent = "Breathe. Recover. Lock in.";
-      value.textContent = formatTime(timerRemaining);
-
-      overlay.classList.add("active");
-
-      timerInterval = setInterval(() => {
-        timerRemaining--;
-        if (timerRemaining <= 0) {
-          value.textContent = "00:00";
-          sub.textContent = "Rest complete.";
-          clearInterval(timerInterval);
-          timerInterval = null;
-        } else {
-          value.textContent = formatTime(timerRemaining);
+        // --- WAKE LOCK (Keep screen on) ---
+        async function setupWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    await navigator.wakeLock.request('screen');
+                    console.log('Wake Lock active');
+                }
+            } catch (err) {
+                console.log('Wake Lock error:', err);
+            }
         }
-      }, 1000);
-    }
 
-    function stopTimer() {
-      document.getElementById("timer-overlay").classList.remove("active");
-      if (timerInterval) clearInterval(timerInterval);
-      timerInterval = null;
-    }
+        // --- DATA LOADING ---
+        async function loadWorkout() {
+            const errorBox = document.getElementById('error-container');
+            const appContent = document.getElementById('app-content');
+            
+            // UI Reset
+            errorBox.style.display = 'none';
+            appContent.innerHTML = '<div style="padding:40px; text-align:center; color:#666">Fetching workout plan...</div>';
 
-    function formatTime(s) {
-      const m = Math.floor(s / 60);
-      const sec = s % 60;
-      return `${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
-    }
+            try {
+                // Cache busting: Append timestamp to URL
+                const response = await fetch(`${DATA_URL}?t=${new Date().getTime()}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                renderApp(data);
 
-    /* ------------------------------
-       WAKE LOCK
-    ------------------------------ */
+            } catch (err) {
+                appContent.innerHTML = '';
+                errorBox.style.display = 'block';
+                errorBox.textContent = `ERROR LOADING WORKOUT:\n${err.message}\n\nTroubleshooting:\n1. Is 'workout.json' in the repo root?\n2. Is the file name lowercase?\n3. Is the JSON valid?`;
+            }
+        }
 
-    async function requestWakeLock() {
-      const status = document.getElementById("status-text");
+        // --- RENDERING ---
+        function renderApp(data) {
+            document.getElementById('date-display').textContent = data.date || new Date().toLocaleDateString();
+            document.getElementById('title-display').textContent = data.title || 'Workout';
+            
+            const container = document.getElementById('app-content');
+            container.innerHTML = '';
 
-      if (!("wakeLock" in navigator)) {
-        status.textContent = "Wake lock not supported. Use Guided Access.";
-        return;
-      }
+            // 1. Warmup
+            if (data.warmup) {
+                const wDiv = document.createElement('div');
+                wDiv.className = 'warmup';
+                let html = `<h2>Warmup</h2><p style="color:#888; font-size:0.95rem; margin-top:-5px; line-height:1.4">${data.warmup.description || ''}</p>`;
+                if (data.warmup.items) {
+                    data.warmup.items.forEach(item => {
+                        html += `<div class="warmup-item">• ${item}</div>`;
+                    });
+                }
+                wDiv.innerHTML = html;
+                container.appendChild(wDiv);
+            }
 
-      try {
-        wakeLockSentinel = await navigator.wakeLock.request("screen");
-        status.textContent = "Screen awake";
-        wakeLockSentinel.addEventListener("release", () => {
-          status.textContent = "Wake lock released";
-        });
-      } catch (err) {
-        status.textContent = "Wake lock failed";
-      }
-    }
+            // 2. Blocks
+            if (data.blocks) {
+                data.blocks.forEach((block, index) => {
+                    const bDiv = document.createElement('div');
+                    bDiv.className = `block ${index === 0 ? 'open' : ''}`;
+                    bDiv.id = `block-${index}`;
 
-    /* ------------------------------
-       INIT
-    ------------------------------ */
+                    // Header
+                    const header = document.createElement('div');
+                    header.className = 'block-header';
+                    
+                    let timerBtn = '';
+                    if (block.rest_seconds) {
+                        timerBtn = `<span class="timer-trigger" onclick="event.stopPropagation(); startTimer(${block.rest_seconds})">⏱ ${block.rest_seconds}s</span>`;
+                    }
 
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible" && wakeLockSentinel) {
-        requestWakeLock();
-      }
-    });
+                    header.innerHTML = `
+                        <div>
+                            <span class="block-title">${block.name}</span>
+                            ${timerBtn}
+                            <div class="block-meta">${block.instructions || ''}</div>
+                        </div>
+                        <div class="chevron">▼</div>
+                    `;
+                    
+                    header.onclick = () => {
+                        document.querySelectorAll('.block').forEach(b => { if (b !== bDiv) b.classList.remove('open'); });
+                        bDiv.classList.toggle('open');
+                    };
 
-    document.addEventListener("DOMContentLoaded", () => {
-      loadWorkout(false);
-    });
-  </script>
+                    // Exercises
+                    const content = document.createElement('div');
+                    content.className = 'block-content';
+                    
+                    if (block.exercises) {
+                        block.exercises.forEach(ex => {
+                            const exDiv = document.createElement('div');
+                            exDiv.className = 'exercise';
+                            
+                            // Tapping main area toggles complete
+                            exDiv.onclick = (e) => {
+                                // Don't toggle if clicking input
+                                if (e.target.tagName === 'INPUT') return;
+                                exDiv.classList.toggle('completed');
+                            };
+
+                            exDiv.innerHTML = `
+                                <div class="ex-info">
+                                    <div class="ex-header">
+                                        <div class="ex-name">${ex.name}</div>
+                                        <div class="ex-load">${ex.load || '-'}</div>
+                                    </div>
+                                    <div class="ex-details">
+                                        ${ex.sets ? ex.sets + ' x ' : ''} ${ex.reps || ''} 
+                                        ${ex.duration ? ' | ' + ex.duration : ''}
+                                    </div>
+                                    ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
+                                </div>
+                                <div class="log-input-container">
+                                    <input type="text" class="log-input" placeholder="#" data-name="${ex.name}" onclick="event.stopPropagation()">
+                                    <div class="log-label">Log</div>
+                                </div>
+                            `;
+                            content.appendChild(exDiv);
+                        });
+                    }
+
+                    bDiv.appendChild(header);
+                    bDiv.appendChild(content);
+                    container.appendChild(bDiv);
+                });
+            }
+        }
+
+        // --- COPY LOGS ---
+        function copyLogsToClipboard() {
+            const inputs = document.querySelectorAll('.log-input');
+            const date = document.getElementById('date-display').textContent;
+            let logText = `My Results for ${date}:\n`;
+            let hasLogs = false;
+
+            inputs.forEach(input => {
+                const val = input.value.trim();
+                if (val !== "") {
+                    logText += `- ${input.dataset.name}: ${val}\n`;
+                    hasLogs = true;
+                }
+            });
+
+            if (!hasLogs) {
+                // If nothing logged, just confirm done
+                logText += "Workout Complete (No specific weights logged).";
+            }
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(logText).then(() => {
+                const btn = document.getElementById('copy-logs-btn');
+                const originalHTML = btn.innerHTML;
+                
+                btn.innerHTML = "<span>✅</span> Copied!";
+                btn.style.background = "#ffffff";
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.style.background = "var(--accent)";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                alert("Could not copy text automatically. Please check permissions.");
+            });
+        }
+
+        // --- TIMER LOGIC ---
+        function startTimer(seconds) {
+            const overlay = document.getElementById('timer-overlay');
+            const display = document.getElementById('timer-display');
+            overlay.style.display = 'flex';
+            
+            let remaining = seconds;
+            
+            // Update display immediately
+            updateTimerDisplay(remaining);
+
+            if (currentTimer) clearInterval(currentTimer);
+            
+            currentTimer = setInterval(() => {
+                remaining--;
+                updateTimerDisplay(remaining);
+                if (remaining <= 0) {
+                    clearInterval(currentTimer);
+                    // Flash screen or sound could go here
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer-display').textContent = `${m}:${s}`;
+        }
+
+        function closeTimer() {
+            document.getElementById('timer-overlay').style.display = 'none';
+            if (currentTimer) clearInterval(currentTimer);
+        }
+    </script>
 </body>
 </html>
