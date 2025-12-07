@@ -1,59 +1,42 @@
 {
   "date": "2025-12-07",
-  "title": "Shoulder of Doom (Test Run )",
-  "notes": "This is a test workout for HTML display testing.",
+  "title": "Run Like You Stole It",
+  "notes": "Fake workout wit‚
+a 2-mile run for time test.",
   "warmup": {
-    "description": "Short treadmil warmup and movement drill loop",
+    "description": "Short treadmil warmup and dynamic stretches",
     "items": [
-      "10-min walk or light run",
-      "Arm circles and bank drills",
-      "Plank and gland stretches"
+      "5-min walking lunge",
+      "10 air Squats",
+      "10 Lunges",
+      "50-m run with .% incline"
     ]
   },
   "blocks": [
     {
-      "id": "Test-1",
-      "name": "Fake Strength Block",
+      "id": "Strength",
+      "name": "Strength Block",
       "type": "supeset",
       "rest_seconds": 60,
-      "instructions": "Jost testing purposes.",
+      "instructions": "Focus on basic compound lifts.",
       "exercises": [
-        {
-          "name": "Scquats",
-          "sets": 3,
-          "reps": 8,
-          "load": "135 lb",
-          "notes": null
-        },
-        {
-          "name": "Pause Rows",
-          "sets": 3,
-          "reps": 8,
-          "load": "100lb",
-          "notes": null
-        }
+        {"name": "Scquats", "sets": 3, "reps": 8, "load": "135 lb", "notes": null},
+        {"name": "Bench Press", "sets": 3, "reps": 8, "load": "50 lb", "notes": null}
       ]
     },
     {
-      "id": "Test-2",
-      "name": "Fake Metcon",
-      "type": "conditioning",
-      "rest_seconds": 20,
-      "instructions": "3 rounds: 20 kettlebell swings + 10 push-ups.",
+      "id": "Conditioning",
+      "name": "2-Mile Run For Time",
+      "type": "test",
+      "rest_seconds": null,
+      "instructions": "Run 2 miles on treadmill at 0.5% incline. Input your time in the text field below.",
       "exercises": [
         {
-          "name": "KB Swings",
-          "sets": null,
-          "reps": 20,
-          "load": "45lb",
-          "notes": null
-        },
-        {
-          "name": "Push-Ups",
-          "sets": null,
-          "reps": 10,
+          "name": "Run 2 Miles",
+          "sets": 1,
+          "reps": "Time",
           "load": null,
-          "notes": null
+          "notes": "Add your time in the text field"
         }
       ]
     }
