@@ -1,69 +1,60 @@
 {
   "date": "2025-12-07",
-  "title": "Return of the Quadzilla (Realistic Edition)",
-  "notes": "Full-body comeback after a week off. KBs capped at 45 lbs, DBs capped at 50 lb. Focus on clean tempo and consistent form. Apple Watch cues are included for each block.",
+  "title": "Shoulder of Doom (Test Run )",
+  "notes": "This is a test workout for HTML display testing.",
   "warmup": {
-    "description": "Incline treadmill + dynamic flow",
+    "description": "Short treadmil warmup and movement drill loop",
     "items": [
-      "Set Apple Watch to 'Indoor Walk' (or Outdoor Walk if outside)",
-      "5-min incline walk or jog @ brisk pace",
-      "10 Air Squats",
-      "10 Lunges (5/leg)",
-      "10 Push-Ups",
-      "10 KB RDLs (45 lb)",
-      "10 Band Shoulder Openers",
-      "30-sec High Knees + 30-sec Butt Kicks",
-      "Repeat the dynamic sequence 2 times"
+      "10-min walk or light run",
+      "Arm circles and bank drills",
+      "Plank and gland stretches"
     ]
   },
   "blocks": [
     {
-      "id": "B-1",
-      "name": "Strength Reboot (Lower Pull + Push)",
-      "type": "supeset",
-      "rest_seconds": 90,
-      "apple_watch": "Switch to 'Functional Strength Training' mode for this block",
-      "instructions": "Focus on controlled tempo and clean reps.",
-      "exercises": [
-        {"name": "Barbell Deadlift", "sets": 4, "reps": 5, "load": "225 lb", "notes": "@` 70% 5RM"},
-        {"name": "DB Bench Press", "sets": 4, "reps": 10, "load": "50 lb each", "notes": null}
-      ]
-    },
-    {
-      "id": "B-2",
-      "name": "Upper Pull + Core Stability",
+      "id": "Test-1",
+      "name": "Fake Strength Block",
       "type": "supeset",
       "rest_seconds": 60,
-      "apple_watch": "Keep on 'Functional Strength Training' mode for this block",
+      "instructions": "Jost testing purposes.",
       "exercises": [
-        {"name": "Pull-Ups", "sets": 4, "reps": "6-8", "load": null, "notes": "add band or weight as needed"},
-        {"name": "Hanging Knee Raises", "sets": 4, "reps": "10-12", "load": null, "notes": null},
-        {"name": "Barbell Rows", "sets": 1, "reps": 10, "load": "135 lb", "notes": "Optional if feeling strong"}
-      ]
-    },
-    {
-      "id": "B-3",
-      "name": "The Sweat Protocol",
-      "type": "conditioning",
-      "apple_watch": "Switch to 'HIIT' mode for this block",
-      "instructions": "EMOM 18 (Every Minute on the Minute): Rotate 3 stations, six total rounds.",
-      "exercises": [
-        {"name": "KB Swings + Goblet Squats", "sets": null, "reps": "12 + 6", "load": "45 lb", "notes": "Station 1"},
-        {"name": "Push-Ups + DB Snatches", "sets": null, "reps": "10 + 8", "load": "50 lb", "notes": "Station 2"},
         {
-        "name": "Treadmill Run", "sets": null, "reps": "12 Cals", "load": null, "notes": "Station 3"}
+          "name": "Scquats",
+          "sets": 3,
+          "reps": 8,
+          "load": "135 lb",
+          "notes": null
+        },
+        {
+          "name": "Pause Rows",
+          "sets": 3,
+          "reps": 8,
+          "load": "100lb",
+          "notes": null
+        }
       ]
     },
     {
-      "id": "B4",
-      "name": "Optional Finisher",
+      "id": "Test-2",
+      "name": "Fake Metcon",
       "type": "conditioning",
-      "apple_watch": "Switch back to 'Functional Strength Training' mode for this block",
-      "instructions": "3 rounds: 30-sec Farmer Carry (50-lb DBs) + 15 Sit-ups + 30-sec Plank.",
+      "rest_seconds": 20,
+      "instructions": "3 rounds: 20 kettlebell swings + 10 push-ups.",
       "exercises": [
-        {"name": "Farmer Carry", "sets": null, "reps": "0:30", "load": null, "notes": "Heavy DBs or KB"},
-        {"name": "Sit-ups", "sets": null, "reps": 15, "load": null, "notes": null},
-        {"name": "Plank", "sets": null, "reps": "0:00", "load": null, "notes": null}
+        {
+          "name": "KB Swings",
+          "sets": null,
+          "reps": 20,
+          "load": "45lb",
+          "notes": null
+        },
+        {
+          "name": "Push-Ups",
+          "sets": null,
+          "reps": 10,
+          "load": null,
+          "notes": null
+        }
       ]
     }
   ]
