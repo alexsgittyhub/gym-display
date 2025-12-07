@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GymOS v3.1</title>
+    <title>GymOS v4.0</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
             --text-secondary: #888888;
             --accent: #D4FF00; /* Acid Green */
             --accent-dim: rgba(212, 255, 0, 0.15);
-            --watch-blue: #5ac8fa; /* Apple Watch Blue */
+            --watch-blue: #5ac8fa; 
             --watch-bg: rgba(90, 200, 250, 0.1);
             --danger: #FF2E2E;
             
@@ -129,7 +129,7 @@
         .exercise-card {
             background: var(--card-bg);
             border-left: 4px solid var(--card-border);
-            border-radius: 4px;
+            border-radius: 6px;
             margin-bottom: 16px; padding: 16px;
             position: relative; transition: all 0.2s;
         }
@@ -139,15 +139,12 @@
             background: #1a1f10; 
             opacity: 0.8;
         }
-        .exercise-card.completed .ex-name {
-            text-decoration: line-through; color: #666;
-        }
-
-        .ex-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        
+        .ex-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
         
         .ex-name {
-            font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;
-            line-height: 1.2; width: 65%;
+            font-size: 1.3rem; font-weight: 700; 
+            line-height: 1.2; width: 70%;
         }
 
         .load-pill {
@@ -156,7 +153,7 @@
             padding: 6px 12px; border-radius: 4px;
             font-size: 1.1rem; cursor: pointer;
             border: 1px solid transparent;
-            text-align: right;
+            text-align: right; white-space: nowrap;
         }
         .load-pill:active { transform: scale(0.95); }
 
@@ -166,24 +163,39 @@
         }
 
         .ex-notes {
-            margin-top: 10px; font-size: 0.9rem; color: #888;
+            margin-top: 8px; font-size: 0.9rem; color: #888;
             font-style: italic; background: #000; padding: 8px;
             border-radius: 4px;
         }
 
-        /* Log Input */
-        .log-area {
-            margin-top: 12px; padding-top: 12px;
-            border-top: 1px solid #222;
-            display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+        /* NEW LOGGING GRID (V4) */
+        .log-row {
+            margin-top: 16px; 
+            padding-top: 16px;
+            border-top: 1px solid #333;
+            display: flex; 
+            gap: 10px;
+            overflow-x: auto;
         }
+        
+        .log-group {
+            display: flex; flex-direction: column; gap: 4px;
+            min-width: 70px; flex: 1;
+        }
+
+        .log-label {
+            font-family: var(--font-mono); font-size: 0.7rem; color: #666;
+            text-align: center; text-transform: uppercase;
+        }
+
         .log-input {
             background: #000; border: 1px solid #333;
-            color: #fff; padding: 8px; border-radius: 4px;
-            width: 80px; text-align: center; font-family: var(--font-mono);
-            font-size: 1rem;
+            color: #fff; padding: 12px 5px; border-radius: 6px;
+            text-align: center; font-family: var(--font-mono);
+            font-size: 1.1rem; font-weight: bold;
+            width: 100%;
         }
-        .log-input:focus { border-color: var(--accent); outline: none; }
+        .log-input:focus { border-color: var(--accent); outline: none; background: #222; }
 
         /* Footer Action Bar */
         #action-bar {
@@ -198,7 +210,7 @@
             font-family: var(--font-head); text-transform: uppercase;
             letter-spacing: 1px; font-size: 1rem;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-            display: flex; align-items: center; gap: 8px;
+            display: flex; align-items: center; gap: 8px; cursor: pointer;
         }
         
         #btn-publish { background: var(--accent); color: #000; border: none; font-weight: bold; }
@@ -335,14 +347,13 @@
                 bHead.innerHTML = `<span class="block-title">${block.name}</span>${timerHtml}`;
                 container.appendChild(bHead);
 
-                // --- NEW: APPLE WATCH ALERT ---
+                // Apple Watch
                 if(block.apple_watch) {
                     const watchDiv = document.createElement('div');
                     watchDiv.className = 'watch-alert';
                     watchDiv.innerHTML = `<div class="watch-icon">⌚</div><div class="watch-text">${block.apple_watch}</div>`;
                     container.appendChild(watchDiv);
                 }
-                // ------------------------------
 
                 if(block.instructions) {
                     const instr = document.createElement('div');
@@ -359,8 +370,40 @@
                     exCard.onclick = (e) => toggleComplete(exCard, e);
 
                     const loadString = ex.load || "-";
-                    const isCalculable = /\d+/.test(loadString) && (loadString.includes('lb') || !isNaN(loadString));
-                    const loadAttr = isCalculable ? `onclick="showPlateMath('${loadString}', event)"` : '';
+                    // Check if it's a weighted exercise (contains numbers and 'lb')
+                    const isWeighted = /\d+/.test(loadString) && (loadString.toLowerCase().includes('lb') || !isNaN(loadString));
+                    const loadAttr = isWeighted ? `onclick="showPlateMath('${loadString}', event)"` : '';
+                    
+                    // Extract numeric default for inputs
+                    let defaultVal = "";
+                    if(isWeighted) {
+                        const match = loadString.match(/(\d+)/);
+                        if(match) defaultVal = match[0];
+                    }
+
+                    // --- GENERATE INPUTS ---
+                    let logHtml = `<div class="log-row">`;
+                    
+                    if(isWeighted && ex.sets && ex.sets > 0) {
+                        // Scenario A: Weighted exercise -> Generate Box per Set
+                        for(let i=1; i<=ex.sets; i++) {
+                            logHtml += `
+                                <div class="log-group">
+                                    <span class="log-label">SET ${i}</span>
+                                    <input type="number" inputmode="decimal" class="log-input" data-name="${ex.name}" value="${defaultVal}" onclick="event.stopPropagation()">
+                                </div>
+                            `;
+                        }
+                    } else {
+                        // Scenario B: Bodyweight or Metcon -> Single "Total" box
+                        logHtml += `
+                            <div class="log-group">
+                                <span class="log-label">TOTAL REPS / NOTE</span>
+                                <input type="text" inputmode="text" class="log-input" data-name="${ex.name}" placeholder="Result" onclick="event.stopPropagation()">
+                            </div>
+                        `;
+                    }
+                    logHtml += `</div>`;
 
                     exCard.innerHTML = `
                         <div class="ex-top">
@@ -372,11 +415,7 @@
                             ${ex.reps ? 'x ' + ex.reps : ''}
                         </div>
                         ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
-                        
-                        <div class="log-area">
-                            <span style="font-size:0.7rem; color:#444">LOG ACTUAL:</span>
-                            <input type="text" class="log-input" data-name="${ex.name}" placeholder="e.g. 280" onclick="event.stopPropagation()">
-                        </div>
+                        ${logHtml}
                     `;
                     container.appendChild(exCard);
                 });
@@ -466,14 +505,26 @@
         function copyLogsToClipboard() {
             const inputs = document.querySelectorAll('.log-input');
             let txt = `Workout Log [${document.getElementById('date-display').innerText}]:\n`;
-            let found = false;
+            
+            // Map to store results by exercise name
+            let results = {};
+
             inputs.forEach(inp => {
                 if(inp.value.trim()) {
-                    txt += `- ${inp.dataset.name}: ${inp.value}\n`;
-                    found = true;
+                    const name = inp.dataset.name;
+                    if(!results[name]) results[name] = [];
+                    results[name].push(inp.value);
                 }
             });
-            if(!found) txt += "Completed (No specific loads logged).";
+
+            if(Object.keys(results).length === 0) {
+                txt += "Completed (No specific loads logged).";
+            } else {
+                for (const [name, vals] of Object.entries(results)) {
+                    // format: - Back Squat: 275 / 275 / 285 / 285
+                    txt += `- ${name}: ${vals.join(' / ')}\n`;
+                }
+            }
             
             navigator.clipboard.writeText(txt).then(() => {
                 const btn = document.getElementById('btn-publish');
