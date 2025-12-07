@@ -1,16 +1,19 @@
 {
   "date": "2025-12-07",
   "title": "Return of the Quadzilla (Realistic Edition)",
-  "notes": "Full-body comeback with clear Apple Watch modes at the right time. KB max 45 lbs, DBs max 50 lbs.",
+  "notes": "Full-body comeback after a week off. KBs capped at 45 lbs, DBs capped at 50 lb. Focus on clean tempo and consistent form. Apple Watch cues are included for each block.",
   "warmup": {
     "description": "Incline treadmill + dynamic flow",
     "items": [
-      "Set\n Apple Watch mode to 'Indoor Walk' for this section",
-      "Short incline walk or jog at brisk pace",
-      "Air squats + Lunges + Push-ups (x2 rounds)",
-      "KB RDLs (45 lb)",
-      "Band shoulder openers",
-      "High knees + butt kicks (x2 rounds)"
+      "Set Apple Watch to 'Indoor Walk' (or Outdoor Walk if outside)",
+      "5-min incline walk or jog @ brisk pace",
+      "10 Air Squats",
+      "10 Lunges (5/leg)",
+      "10 Push-Ups",
+      "10 KB RDLs (45 lb)",
+      "10 Band Shoulder Openers",
+      "30-sec High Knees + 30-sec Butt Kicks",
+      "Repeat the dynamic sequence 2 times"
     ]
   },
   "blocks": [
@@ -19,11 +22,11 @@
       "name": "Strength Reboot (Lower Pull + Push)",
       "type": "supeset",
       "rest_seconds": 90,
-      "instructions": "Focus on controlled tempo and clean reps.",
       "apple_watch": "Switch to 'Functional Strength Training' mode for this block",
+      "instructions": "Focus on controlled tempo and clean reps.",
       "exercises": [
-        {"name": "Barbell Deadlift", "sets": 4, "reps": 5, "load": "225 lb", "notes": "70% 5RM"},
-        {"name": "Dumbell Bench Press", "sets": 4, "reps": 10, "load": "50 lb each", "notes": null}
+        {"name": "Barbell Deadlift", "sets": 4, "reps": 5, "load": "225 lb", "notes": "@` 70% 5RM"},
+        {"name": "DB Bench Press", "sets": 4, "reps": 10, "load": "50 lb each", "notes": null}
       ]
     },
     {
@@ -31,10 +34,9 @@
       "name": "Upper Pull + Core Stability",
       "type": "supeset",
       "rest_seconds": 60,
-      "instructions": "Superset: Pull-Ups + Hanging Knee Raises.",
       "apple_watch": "Keep on 'Functional Strength Training' mode for this block",
       "exercises": [
-        {"name": "Pull-Ups", "sets": 4, "reps": "6-8", "load": null, "notes": "Add bank or weight as needed"},
+        {"name": "Pull-Ups", "sets": 4, "reps": "6-8", "load": null, "notes": "add band or weight as needed"},
         {"name": "Hanging Knee Raises", "sets": 4, "reps": "10-12", "load": null, "notes": null},
         {"name": "Barbell Rows", "sets": 1, "reps": 10, "load": "135 lb", "notes": "Optional if feeling strong"}
       ]
@@ -43,26 +45,25 @@
       "id": "B-3",
       "name": "The Sweat Protocol",
       "type": "conditioning",
-      "instructions": "EMOM 18 (Every Minute on the Minute): Rotate 3 stations, six total rounds.",
       "apple_watch": "Switch to 'HIIT' mode for this block",
+      "instructions": "EMOM 18 (Every Minute on the Minute): Rotate 3 stations, six total rounds.",
       "exercises": [
         {"name": "KB Swings + Goblet Squats", "sets": null, "reps": "12 + 6", "load": "45 lb", "notes": "Station 1"},
         {"name": "Push-Ups + DB Snatches", "sets": null, "reps": "10 + 8", "load": "50 lb", "notes": "Station 2"},
-        {"name": "Treadmill Run", "sets": null, "reps": "12 Cals", "load": null, "notes": "Station 3"}
+        {
+        "name": "Treadmill Run", "sets": null, "reps": "12 Cals", "load": null, "notes": "Station 3"}
       ]
     },
     {
       "id": "B4",
       "name": "Optional Finisher",
       "type": "conditioning",
-      "instructions": "3 rounds: 30-sec Farmer Carry + 15 Sit-ups + 30-sec Plank.",
       "apple_watch": "Switch back to 'Functional Strength Training' mode for this block",
+      "instructions": "3 rounds: 30-sec Farmer Carry (50-lb DBs) + 15 Sit-ups + 30-sec Plank.",
       "exercises": [
-        {"name": "Farmer Carry", "sets": null, "reps": "0:30", "load": null, "notes": "Heavy db3 or KBs"},
-        {
-        "name": "Sit-ups", "sets": null, "reps": 15, "load": null, "notes": null},
-        {
-        "name": "Plank", "sets": null, "reps": "1:00", "load": null, "notes": null}
+        {"name": "Farmer Carry", "sets": null, "reps": "0:30", "load": null, "notes": "Heavy DBs or KB"},
+        {"name": "Sit-ups", "sets": null, "reps": 15, "load": null, "notes": null},
+        {"name": "Plank", "sets": null, "reps": "0:00", "load": null, "notes": null}
       ]
     }
   ]
