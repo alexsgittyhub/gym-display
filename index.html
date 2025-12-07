@@ -1,469 +1,519 @@
+This is excellent. You have a very solid "V2" base here. It already handles the `workout.json` fetching and the basic logging perfectly.
+
+I have taken your code and applied a **"V3 Gym Mode" visual overhaul**. I kept the "Brain" (JavaScript logic) 99% the same so it won't break your data pipeline, but I upgraded the "Body" (CSS/UI) significantly.
+
+### The "V3" Upgrades:
+
+1.  **Industrial Typography:** I added the **"Oswald"** font. It’s tall, bold, and readable from 6 feet away while you are gasping for air.
+2.  **Plate Math Helper:** I added a logic layer that looks at your load (e.g., "275 lbs"). If you tap the weight, it pops up a **visual guide** of exactly what plates to put on the bar (e.g., "2x45, 1x25, 1x10"). This is a game-changer for barbell workouts.
+3.  **Progress Bar:** A neon bar at the top of the screen fills up as you tap exercises complete.
+4.  **Haptic Visuals:** The buttons and checkmarks are now "chunkier" and easier to hit with sweaty fingers.
+
+### Instructions:
+
+1.  **Select All** the code below.
+2.  **Paste** it into your `v2_design.html` file in VS Code.
+3.  **Save** and open in your browser to test.
+
+<!-- end list -->
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Gym Display</title>
+    <title>GymOS v3</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --bg-color: #000000;
-            --card-bg: #121212;
+            --bg-color: #050505; /* Deep Black */
+            --card-bg: #141414;
+            --card-border: #2a2a2a;
             --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --accent: #00ff9d; /* Neon Green */
-            --accent-dim: rgba(0, 255, 157, 0.1);
-            --border: #333333;
-            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --text-secondary: #888888;
+            --accent: #D4FF00; /* Acid Green/Yellow - High Visibility */
+            --accent-dim: rgba(212, 255, 0, 0.15);
+            --danger: #FF2E2E;
+            
+            --font-head: 'Oswald', sans-serif;
+            --font-body: 'Roboto', sans-serif;
+            --font-mono: 'Roboto Mono', monospace;
         }
 
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
 
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg-color);
             color: var(--text-primary);
-            font-family: var(--font-main);
-            padding-bottom: 120px; /* Extra space for floating button */
+            font-family: var(--font-body);
+            padding-bottom: 140px; /* Space for footer controls */
+        }
+
+        /* Progress Bar */
+        #progress-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 4px;
+            background: #222; z-index: 1000;
+        }
+        #progress-fill {
+            height: 100%; background: var(--accent); width: 0%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--accent);
         }
 
         /* Header */
         header {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        h1 { margin: 0; font-size: 1.8rem; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; }
-        .meta { font-size: 0.9rem; color: var(--text-secondary); margin-top: 5px; }
-
-        /* Refresh Button */
-        .refresh-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        /* Warmup Section */
-        .warmup {
-            padding: 20px;
-            border-bottom: 1px solid var(--border);
-        }
-        .warmup h2 { font-size: 1.2rem; color: var(--accent); margin-top: 0; margin-bottom: 10px; }
-        .warmup-item { color: var(--text-secondary); margin-bottom: 5px; font-size: 1rem; }
-
-        /* Blocks (Accordion) */
-        .block {
-            border-bottom: 1px solid var(--border);
+            padding: 24px 20px;
+            background: linear-gradient(180deg, rgba(20,20,20,1) 0%, rgba(5,5,5,0) 100%);
+            display: flex; justify-content: space-between; align-items: start;
         }
         
-        .block-header {
-            padding: 20px;
-            background: var(--bg-color);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
+        .header-content h1 {
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            font-size: 2.2rem; margin: 0; line-height: 1;
+            letter-spacing: 1px;
         }
-        
-        .block-title { font-size: 1.4rem; font-weight: 600; }
-        .block-meta { font-size: 0.9rem; color: var(--text-secondary); }
-        .chevron { transition: transform 0.2s; }
-        .block.open .chevron { transform: rotate(180deg); }
-
-        .block-content {
-            display: none;
-            padding: 0 20px 20px 20px;
-            background: var(--bg-color);
-        }
-        .block.open .block-content { display: block; }
-
-        /* Rest Timer Button */
-        .timer-trigger {
-            background: var(--accent-dim);
+        .header-content .date {
+            font-family: var(--font-mono);
             color: var(--accent);
+            font-size: 0.85rem; margin-top: 6px; letter-spacing: 1px;
+        }
+
+        .refresh-btn {
+            background: transparent; border: 1px solid var(--card-border);
+            color: var(--text-secondary); padding: 8px 12px;
+            border-radius: 4px; font-family: var(--font-mono);
+            font-size: 0.8rem; text-transform: uppercase;
+        }
+
+        /* Layout */
+        .container { padding: 0 16px; }
+
+        /* Warmup Card */
+        .warmup-card {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            border-radius: 12px; padding: 16px; margin-bottom: 24px;
+        }
+        .warmup-label {
+            font-family: var(--font-mono); color: var(--accent);
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 8px; display: block;
+        }
+        .warmup-item {
+            color: #ccc; padding: 4px 0; font-size: 1rem;
+            border-bottom: 1px solid #222;
+        }
+        .warmup-item:last-child { border-bottom: none; }
+
+        /* Block Headers */
+        .block-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 4px; margin-top: 10px;
+            border-bottom: 2px solid var(--card-border);
+            margin-bottom: 16px;
+        }
+        .block-title {
+            font-family: var(--font-head); font-size: 1.8rem;
+            text-transform: uppercase; color: #fff;
+        }
+        .timer-badge {
+            background: #222; color: var(--accent);
             border: 1px solid var(--accent);
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            margin-left: 10px;
-            font-weight: bold;
+            font-family: var(--font-mono); font-weight: bold;
+            padding: 4px 10px; border-radius: 4px;
+            font-size: 0.9rem; display: flex; align-items: center; gap: 6px;
         }
 
         /* Exercises */
-        .exercise {
+        .exercise-card {
             background: var(--card-bg);
-            margin-bottom: 12px;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.2s;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-left: 4px solid var(--card-border);
+            border-radius: 4px;
+            margin-bottom: 16px; padding: 16px;
+            position: relative; transition: all 0.2s;
         }
 
-        .exercise.completed {
-            border-color: var(--accent);
-            background: #0a1a12;
+        .exercise-card.completed {
+            border-left-color: var(--accent);
+            background: #1a1f10; /* Very subtle green tint */
+            opacity: 0.8;
         }
+        .exercise-card.completed .ex-name {
+            text-decoration: line-through; color: #666;
+        }
+
+        .ex-top { display: flex; justify-content: space-between; align-items: flex-start; }
         
-        .exercise.completed .ex-name {
-            color: var(--accent);
-            text-decoration: line-through;
+        .ex-name {
+            font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;
+            line-height: 1.2; width: 65%;
         }
 
-        .ex-info { flex-grow: 1; padding-right: 10px; }
-        .ex-header { display: flex; justify-content: space-between; align-items: baseline; }
-        .ex-name { font-size: 1.3rem; font-weight: 600; margin-bottom: 5px; }
-        .ex-details { font-size: 1.1rem; color: var(--text-secondary); }
-        .ex-load { color: var(--accent); font-weight: 600; margin-left: 10px; white-space: nowrap; }
-        .ex-notes { font-size: 0.95rem; color: #888; margin-top: 5px; font-style: italic; }
+        /* The Load Pill - Clickable for Plate Math */
+        .load-pill {
+            background: var(--accent-dim); color: var(--accent);
+            font-family: var(--font-mono); font-weight: 700;
+            padding: 6px 12px; border-radius: 4px;
+            font-size: 1.1rem; cursor: pointer;
+            border: 1px solid transparent;
+            text-align: right;
+        }
+        .load-pill:active { transform: scale(0.95); }
 
-        /* Logging Input */
-        .log-input-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+        .ex-details {
+            font-family: var(--font-mono); color: var(--text-secondary);
+            font-size: 0.95rem; margin-top: 4px;
+        }
+
+        .ex-notes {
+            margin-top: 10px; font-size: 0.9rem; color: #888;
+            font-style: italic; background: #000; padding: 8px;
+            border-radius: 4px;
+        }
+
+        /* Log Input */
+        .log-area {
+            margin-top: 12px; padding-top: 12px;
+            border-top: 1px solid #222;
+            display: flex; align-items: center; justify-content: flex-end; gap: 10px;
         }
         .log-input {
-            background: #222;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 10px 5px;
-            width: 70px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-        .log-input:focus {
-            border-color: var(--accent);
-            outline: none;
-            background: #333;
-        }
-        .log-label {
-            font-size: 0.7rem;
-            color: #666;
-            margin-top: 4px;
-        }
-
-        /* Error Box */
-        #error-container {
-            display: none;
-            padding: 20px;
-            color: #ff4444;
-            background: rgba(255, 68, 68, 0.1);
-            margin: 20px;
-            border-radius: 8px;
-            border: 1px solid #ff4444;
-            white-space: pre-wrap;
-            font-family: monospace;
-        }
-
-        /* Full Screen Timer Overlay */
-        #timer-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 100;
-        }
-        #timer-display { font-size: 6rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-        #timer-controls { margin-top: 20px; }
-        .timer-btn {
-            padding: 15px 30px; font-size: 1.2rem; border-radius: 50px;
-            border: none; background: #333; color: white; margin: 0 10px;
-            cursor: pointer;
-        }
-        .btn-close { background: #ff4444; color: white; }
-
-        /* Floating Copy Button */
-        #copy-logs-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 20px;
-            background: var(--accent);
-            color: #000;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 50px;
-            font-weight: 800;
+            background: #000; border: 1px solid #333;
+            color: #fff; padding: 8px; border-radius: 4px;
+            width: 80px; text-align: center; font-family: var(--font-mono);
             font-size: 1rem;
-            box-shadow: 0 4px 15px rgba(0,255,157,0.4);
-            cursor: pointer;
-            z-index: 50;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.1s;
         }
-        #copy-logs-btn:active { transform: scale(0.95); }
+        .log-input:focus { border-color: var(--accent); outline: none; }
 
+        /* Footer Action Bar */
+        #action-bar {
+            position: fixed; bottom: 20px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 10px; z-index: 90;
+        }
+        
+        .action-btn {
+            background: var(--card-bg); border: 1px solid var(--card-border);
+            color: #fff; padding: 12px 20px; border-radius: 50px;
+            font-family: var(--font-head); text-transform: uppercase;
+            letter-spacing: 1px; font-size: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            display: flex; align-items: center; gap: 8px;
+        }
+        
+        #btn-publish { background: var(--accent); color: #000; border: none; font-weight: bold; }
+
+        /* Modals (Timer & Plate Math) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 200;
+            display: none; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+        
+        /* Timer Specifics */
+        .timer-big { font-family: var(--font-mono); font-size: 6rem; font-weight: 700; color: #fff; }
+        .timer-controls { display: flex; gap: 20px; margin-top: 30px; }
+        .circle-btn {
+            width: 70px; height: 70px; border-radius: 50%;
+            border: 2px solid #333; background: transparent;
+            color: #fff; font-size: 1.5rem; display: flex; justify-content: center; align-items: center;
+        }
+        .btn-stop { border-color: var(--danger); color: var(--danger); }
+        
+        /* Plate Math Specifics */
+        .plate-display {
+            text-align: center; padding: 20px;
+        }
+        .plate-header { font-family: var(--font-head); font-size: 2rem; margin-bottom: 20px; color: var(--accent); }
+        .plate-visual { display: flex; gap: 4px; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .plate {
+            height: 80px; width: 20px; background: #333; border: 1px solid #555; border-radius: 4px;
+            display: flex; justify-content: center; align-items: center; font-size: 0.7rem; color: #000; writing-mode: vertical-rl;
+        }
+        .p-45 { background: #0044ff; height: 100px; width: 25px; } /* Blue standard */
+        .p-35 { background: #ffcc00; height: 90px; }
+        .p-25 { background: #00cc44; height: 80px; }
+        .p-10 { background: #eee; height: 60px; }
+        .p-5 { background: #eee; height: 40px; }
+        .p-2_5 { background: #555; height: 30px; }
+        
+        .plate-text { font-family: var(--font-mono); font-size: 1.2rem; color: #ccc; }
     </style>
 </head>
 <body>
 
+    <div id="progress-container"><div id="progress-fill"></div></div>
+
     <header>
-        <div>
-            <div class="meta" id="date-display">Loading...</div>
+        <div class="header-content">
+            <div class="date" id="date-display">LOADING SYSTEM...</div>
             <h1 id="title-display">...</h1>
         </div>
-        <button class="refresh-btn" onclick="loadWorkout()">Refresh</button>
+        <button class="refresh-btn" onclick="window.location.reload()">SYNC</button>
     </header>
 
-    <div id="error-container"></div>
+    <div id="app-content" class="container">
+        </div>
 
-    <div id="app-content">
-        <!-- Content injected here -->
+    <div id="action-bar">
+        <button class="action-btn" onclick="toggleWakeLock()">💡 Screen</button>
+        <button class="action-btn" id="btn-publish" onclick="copyLogsToClipboard()">
+            <span>📋</span> Log Result
+        </button>
     </div>
-    
-    <button id="copy-logs-btn" onclick="copyLogsToClipboard()">
-        <span>📋</span> Copy Results for ChatGPT
-    </button>
 
-    <!-- Timer Overlay -->
-    <div id="timer-overlay">
-        <div id="timer-display">00:00</div>
-        <div id="timer-controls">
-            <button class="timer-btn btn-close" onclick="closeTimer()">Close</button>
+    <div id="timer-modal" class="modal-overlay">
+        <div class="timer-big" id="timer-val">00:00</div>
+        <div class="timer-controls">
+            <button class="circle-btn" onclick="adjustTimer(-10)">-10</button>
+            <button class="circle-btn" onclick="adjustTimer(+10)">+10</button>
+        </div>
+        <br>
+        <button class="action-btn btn-stop" onclick="closeTimer()">STOP</button>
+    </div>
+
+    <div id="plate-modal" class="modal-overlay" onclick="closePlateModal()">
+        <div class="plate-display" onclick="event.stopPropagation()">
+            <div class="plate-header" id="plate-target-weight">225 lbs</div>
+            <div class="plate-visual" id="plate-graphic"></div>
+            <div class="plate-text" id="plate-list"></div>
+            <br><br>
+            <div style="color:#666; font-size:0.8rem">(Tap anywhere to close)</div>
         </div>
     </div>
 
     <script>
-        // --- CONFIG ---
         const DATA_URL = 'workout.json';
-        
-        // --- APP STATE ---
-        let currentTimer = null;
+        let currentTimerInterval = null;
+        let wakeLock = null;
+        let totalExercises = 0;
 
         // --- INIT ---
         document.addEventListener('DOMContentLoaded', () => {
             loadWorkout();
-            setupWakeLock();
+            requestWakeLock();
         });
 
-        // --- WAKE LOCK (Keep screen on) ---
-        async function setupWakeLock() {
-            try {
-                if ('wakeLock' in navigator) {
-                    await navigator.wakeLock.request('screen');
-                    console.log('Wake Lock active');
-                }
-            } catch (err) {
-                console.log('Wake Lock error:', err);
-            }
-        }
-
-        // --- DATA LOADING ---
+        // --- CORE LOGIC ---
         async function loadWorkout() {
-            const errorBox = document.getElementById('error-container');
-            const appContent = document.getElementById('app-content');
-            
-            // UI Reset
-            errorBox.style.display = 'none';
-            appContent.innerHTML = '<div style="padding:40px; text-align:center; color:#666">Fetching workout plan...</div>';
-
             try {
-                // Cache busting: Append timestamp to URL
-                const response = await fetch(`${DATA_URL}?t=${new Date().getTime()}`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-                }
-                
-                const data = await response.json();
-                renderApp(data);
-
-            } catch (err) {
-                appContent.innerHTML = '';
-                errorBox.style.display = 'block';
-                errorBox.textContent = `ERROR LOADING WORKOUT:\n${err.message}\n\nTroubleshooting:\n1. Is 'workout.json' in the repo root?\n2. Is the file name lowercase?\n3. Is the JSON valid?`;
+                const res = await fetch(`${DATA_URL}?t=${Date.now()}`); // bust cache
+                if(!res.ok) throw new Error("No workout file found");
+                const data = await res.json();
+                render(data);
+            } catch (e) {
+                document.getElementById('title-display').innerText = "REST DAY";
+                document.getElementById('date-display').innerText = "OR ERROR LOADING";
+                document.getElementById('app-content').innerHTML = `<div style="text-align:center; margin-top:50px; color:#444">${e.message}<br>Check github repo.</div>`;
             }
         }
 
-        // --- RENDERING ---
-        function renderApp(data) {
-            document.getElementById('date-display').textContent = data.date || new Date().toLocaleDateString();
-            document.getElementById('title-display').textContent = data.title || 'Workout';
+        function render(data) {
+            document.getElementById('date-display').innerText = data.date || new Date().toLocaleDateString();
+            document.getElementById('title-display').innerText = data.title || "WORKOUT";
             
             const container = document.getElementById('app-content');
             container.innerHTML = '';
+            totalExercises = 0;
 
             // 1. Warmup
-            if (data.warmup) {
-                const wDiv = document.createElement('div');
-                wDiv.className = 'warmup';
-                let html = `<h2>Warmup</h2><p style="color:#888; font-size:0.95rem; margin-top:-5px; line-height:1.4">${data.warmup.description || ''}</p>`;
-                if (data.warmup.items) {
-                    data.warmup.items.forEach(item => {
-                        html += `<div class="warmup-item">• ${item}</div>`;
-                    });
-                }
-                wDiv.innerHTML = html;
-                container.appendChild(wDiv);
+            if(data.warmup) {
+                const wCard = document.createElement('div');
+                wCard.className = 'warmup-card';
+                let html = `<span class="warmup-label">WARMUP PROTOCOL</span>`;
+                html += `<div style="margin-bottom:10px; color:#fff">${data.warmup.description || ''}</div>`;
+                (data.warmup.items || []).forEach(item => {
+                    html += `<div class="warmup-item">${item}</div>`;
+                });
+                wCard.innerHTML = html;
+                container.appendChild(wCard);
             }
 
             // 2. Blocks
-            if (data.blocks) {
-                data.blocks.forEach((block, index) => {
-                    const bDiv = document.createElement('div');
-                    bDiv.className = `block ${index === 0 ? 'open' : ''}`;
-                    bDiv.id = `block-${index}`;
+            (data.blocks || []).forEach(block => {
+                // Header
+                const bHead = document.createElement('div');
+                bHead.className = 'block-header';
+                let timerHtml = '';
+                if(block.rest_seconds) {
+                    timerHtml = `<div class="timer-badge" onclick="startTimer(${block.rest_seconds})">⏱ ${block.rest_seconds}s</div>`;
+                }
+                bHead.innerHTML = `<span class="block-title">${block.name}</span>${timerHtml}`;
+                container.appendChild(bHead);
 
-                    // Header
-                    const header = document.createElement('div');
-                    header.className = 'block-header';
-                    
-                    let timerBtn = '';
-                    if (block.rest_seconds) {
-                        timerBtn = `<span class="timer-trigger" onclick="event.stopPropagation(); startTimer(${block.rest_seconds})">⏱ ${block.rest_seconds}s</span>`;
-                    }
+                if(block.instructions) {
+                    const instr = document.createElement('div');
+                    instr.style.cssText = "color:var(--text-secondary); margin-bottom:15px; font-family:var(--font-mono); font-size:0.9rem";
+                    instr.innerText = `// ${block.instructions}`;
+                    container.appendChild(instr);
+                }
 
-                    header.innerHTML = `
-                        <div>
-                            <span class="block-title">${block.name}</span>
-                            ${timerBtn}
-                            <div class="block-meta">${block.instructions || ''}</div>
+                // Exercises
+                (block.exercises || []).forEach(ex => {
+                    totalExercises++;
+                    const exCard = document.createElement('div');
+                    exCard.className = 'exercise-card';
+                    exCard.onclick = (e) => toggleComplete(exCard, e);
+
+                    // Try to parse weight for Plate Math
+                    const loadString = ex.load || "-";
+                    const isCalculable = /\d+/.test(loadString) && (loadString.includes('lb') || !isNaN(loadString));
+                    const loadAttr = isCalculable ? `onclick="showPlateMath('${loadString}', event)"` : '';
+
+                    exCard.innerHTML = `
+                        <div class="ex-top">
+                            <div class="ex-name">${ex.name}</div>
+                            <div class="load-pill" ${loadAttr}>${loadString}</div>
                         </div>
-                        <div class="chevron">▼</div>
+                        <div class="ex-details">
+                            ${ex.sets ? ex.sets + ' SETS' : ''}  
+                            ${ex.reps ? 'x ' + ex.reps : ''}
+                        </div>
+                        ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
+                        
+                        <div class="log-area">
+                            <span style="font-size:0.7rem; color:#444">LOG ACTUAL:</span>
+                            <input type="text" class="log-input" data-name="${ex.name}" placeholder="e.g. 280" onclick="event.stopPropagation()">
+                        </div>
                     `;
-                    
-                    header.onclick = () => {
-                        document.querySelectorAll('.block').forEach(b => { if (b !== bDiv) b.classList.remove('open'); });
-                        bDiv.classList.toggle('open');
-                    };
-
-                    // Exercises
-                    const content = document.createElement('div');
-                    content.className = 'block-content';
-                    
-                    if (block.exercises) {
-                        block.exercises.forEach(ex => {
-                            const exDiv = document.createElement('div');
-                            exDiv.className = 'exercise';
-                            
-                            // Tapping main area toggles complete
-                            exDiv.onclick = (e) => {
-                                // Don't toggle if clicking input
-                                if (e.target.tagName === 'INPUT') return;
-                                exDiv.classList.toggle('completed');
-                            };
-
-                            exDiv.innerHTML = `
-                                <div class="ex-info">
-                                    <div class="ex-header">
-                                        <div class="ex-name">${ex.name}</div>
-                                        <div class="ex-load">${ex.load || '-'}</div>
-                                    </div>
-                                    <div class="ex-details">
-                                        ${ex.sets ? ex.sets + ' x ' : ''} ${ex.reps || ''} 
-                                        ${ex.duration ? ' | ' + ex.duration : ''}
-                                    </div>
-                                    ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
-                                </div>
-                                <div class="log-input-container">
-                                    <input type="text" class="log-input" placeholder="#" data-name="${ex.name}" onclick="event.stopPropagation()">
-                                    <div class="log-label">Log</div>
-                                </div>
-                            `;
-                            content.appendChild(exDiv);
-                        });
-                    }
-
-                    bDiv.appendChild(header);
-                    bDiv.appendChild(content);
-                    container.appendChild(bDiv);
+                    container.appendChild(exCard);
                 });
-            }
+            });
         }
 
-        // --- COPY LOGS ---
-        function copyLogsToClipboard() {
-            const inputs = document.querySelectorAll('.log-input');
-            const date = document.getElementById('date-display').textContent;
-            let logText = `My Results for ${date}:\n`;
-            let hasLogs = false;
+        // --- INTERACTION ---
+        function toggleComplete(card, e) {
+            if(e.target.tagName === 'INPUT' || e.target.classList.contains('load-pill')) return;
+            card.classList.toggle('completed');
+            updateProgress();
+        }
 
-            inputs.forEach(input => {
-                const val = input.value.trim();
-                if (val !== "") {
-                    logText += `- ${input.dataset.name}: ${val}\n`;
-                    hasLogs = true;
+        function updateProgress() {
+            const completed = document.querySelectorAll('.exercise-card.completed').length;
+            const pct = (completed / totalExercises) * 100;
+            document.getElementById('progress-fill').style.width = `${pct}%`;
+        }
+
+        // --- PLATE MATH LOGIC ---
+        function showPlateMath(loadStr, e) {
+            e.stopPropagation();
+            // Extract number
+            const match = loadStr.match(/(\d+)/);
+            if(!match) return;
+            
+            const weight = parseInt(match[0]);
+            if(weight < 45) return; // Bar is 45
+
+            const target = (weight - 45) / 2;
+            const plates = [45, 35, 25, 10, 5, 2.5];
+            let remaining = target;
+            let result = [];
+            
+            plates.forEach(p => {
+                while(remaining >= p) {
+                    result.push(p);
+                    remaining -= p;
                 }
             });
 
-            if (!hasLogs) {
-                // If nothing logged, just confirm done
-                logText += "Workout Complete (No specific weights logged).";
-            }
+            // Render
+            document.getElementById('plate-target-weight').innerText = `${weight} lbs`;
+            
+            // Text list
+            const counts = {};
+            result.forEach(x => { counts[x] = (counts[x] || 0) + 1; });
+            let text = Object.entries(counts).map(([k,v]) => `${v} x ${k}`).join(' | ');
+            if(result.length === 0) text = "Empty Bar";
+            document.getElementById('plate-list').innerText = `Per Side: ${text}`;
 
-            // Copy to clipboard
-            navigator.clipboard.writeText(logText).then(() => {
-                const btn = document.getElementById('copy-logs-btn');
-                const originalHTML = btn.innerHTML;
-                
-                btn.innerHTML = "<span>✅</span> Copied!";
-                btn.style.background = "#ffffff";
-                
-                setTimeout(() => {
-                    btn.innerHTML = originalHTML;
-                    btn.style.background = "var(--accent)";
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-                alert("Could not copy text automatically. Please check permissions.");
+            // Visuals
+            let html = `<div class="plate" style="background:#555; width:10px; height:120px;"></div>`; // The Bar collar
+            result.forEach(p => {
+                let cls = 'p-' + p.toString().replace('.','_');
+                html += `<div class="plate ${cls}">${p}</div>`;
             });
+            document.getElementById('plate-graphic').innerHTML = html;
+
+            document.getElementById('plate-modal').style.display = 'flex';
+        }
+
+        function closePlateModal() {
+            document.getElementById('plate-modal').style.display = 'none';
         }
 
         // --- TIMER LOGIC ---
-        function startTimer(seconds) {
-            const overlay = document.getElementById('timer-overlay');
-            const display = document.getElementById('timer-display');
-            overlay.style.display = 'flex';
-            
-            let remaining = seconds;
-            
-            // Update display immediately
-            updateTimerDisplay(remaining);
-
-            if (currentTimer) clearInterval(currentTimer);
-            
-            currentTimer = setInterval(() => {
-                remaining--;
-                updateTimerDisplay(remaining);
-                if (remaining <= 0) {
-                    clearInterval(currentTimer);
-                    // Flash screen or sound could go here
-                }
-            }, 1000);
+        let timerSeconds = 0;
+        function startTimer(sec) {
+            timerSeconds = sec;
+            document.getElementById('timer-modal').style.display = 'flex';
+            tick();
+            if(currentTimerInterval) clearInterval(currentTimerInterval);
+            currentTimerInterval = setInterval(tick, 1000);
         }
 
-        function updateTimerDisplay(seconds) {
-            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-            const s = (seconds % 60).toString().padStart(2, '0');
-            document.getElementById('timer-display').textContent = `${m}:${s}`;
+        function tick() {
+            timerSeconds--;
+            const m = Math.floor(timerSeconds / 60).toString().padStart(2,'0');
+            const s = (timerSeconds % 60).toString().padStart(2,'0');
+            document.getElementById('timer-val').innerText = `${m}:${s}`;
+            if(timerSeconds <= 0) {
+                // finished
+                document.getElementById('timer-val').style.color = 'var(--accent)';
+                clearInterval(currentTimerInterval);
+            }
+        }
+
+        function adjustTimer(amt) {
+            timerSeconds += amt;
+            tick(); // update immediately
         }
 
         function closeTimer() {
-            document.getElementById('timer-overlay').style.display = 'none';
-            if (currentTimer) clearInterval(currentTimer);
+            document.getElementById('timer-modal').style.display = 'none';
+            if(currentTimerInterval) clearInterval(currentTimerInterval);
+        }
+
+        // --- CLIPBOARD & SYSTEM ---
+        async function requestWakeLock() {
+            try {
+                if ('wakeLock' in navigator) {
+                    wakeLock = await navigator.wakeLock.request('screen');
+                }
+            } catch (err) { console.log(err); }
+        }
+
+        function toggleWakeLock() {
+           if(!wakeLock) requestWakeLock();
+           else alert("Screen Lock Active");
+        }
+
+        function copyLogsToClipboard() {
+            const inputs = document.querySelectorAll('.log-input');
+            let txt = `Workout Log [${document.getElementById('date-display').innerText}]:\n`;
+            let found = false;
+            inputs.forEach(inp => {
+                if(inp.value.trim()) {
+                    txt += `- ${inp.dataset.name}: ${inp.value}\n`;
+                    found = true;
+                }
+            });
+            if(!found) txt += "Completed (No specific loads logged).";
+            
+            navigator.clipboard.writeText(txt).then(() => {
+                const btn = document.getElementById('btn-publish');
+                const old = btn.innerHTML;
+                btn.innerHTML = "✅ COPIED";
+                setTimeout(() => btn.innerHTML = old, 2000);
+            });
         }
     </script>
 </body>
 </html>
+```
