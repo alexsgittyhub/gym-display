@@ -1,13 +1,14 @@
 {
   "date": "2025-12-07",
-  "title": "Return of the Quadzilla",
-  "notes": "Full-body reboot after a week off. Moderate weights, crisp technique, no gnindy failure. Ends with a satisfying sweat.",
+  "title": "Return of the Quadzilla (Realistic Edition)",
+  "notes": "Full-body comeback with clear Apple Watch modes at the right time. KB max 45 lbs, DBs max 50 lbs.",
   "warmup": {
     "description": "Incline treadmill + dynamic flow",
     "items": [
+      "[Apple Watch] Set to 'Indoor Walk' mode for the warmup",
       "5-min incline walk or jog @ brisk pace",
       "10 Air Squats + 10 Lunges + 10 Push-ups (x2 rounds)",
-      "10 Kettlebell RDLs (light)",
+      "10 Kettlebell RDLs (45 lb)",
       "10 Shoulder openers with band",
       "30-sec high knees + 30-sec butt kicks (x2 rounds)"
     ]
@@ -18,10 +19,10 @@
       "name": "Strength Reboot (Lower Pull + Push)",
       "type": "supeset",
       "rest_seconds": 90,
-      "instructions": "Focus on controlled tempo and clean reps.",
+      "instructions": "Focus on controlled tempo and clean reps. [Apple Watch] Switch to 'Functional Strength Training' before beginning this block.",
       "exercises": [
         {"name": "Barbell Deadlift", "sets": 4, "reps": 5, "load": "225 lb", "notes": "@` 70% 5RM"},
-        {"name": "Dumbbell Bench Press", "sets": 4, "reps": 8, "load": "60 lb each", "notes": null}
+        {"name": "Dumbbell Bench Press", "sets": 4, "reps": 10, "load": "50 lb each", "notes": null}
       ]
     },
     {
@@ -29,7 +30,7 @@
       "name": "Upper Pull + Core Stability",
       "type": "supeset",
       "rest_seconds": 60,
-      "instructions": "Superset: Pull-Ups + Hanging Knee Raises",
+      "instructions": "Superset: Pull-Ups + Hanging Knee Raises. [Apple Watch] Keep on 'Functional Strength Training' mode.",
       "exercises": [
         {"name": "Pull-Ups", "sets": 4, "reps": "6-8", "load": null, "notes": "add band or weight as needed"},
         {"name": "Hanging Knee Raises", "sets": 4, "reps": "10-12", "load": null, "notes": null},
@@ -40,11 +41,12 @@
       "id": "B-3",
       "name": "The Sweat Protocol",
       "type": "conditioning",
-      "rest_seconds": null,
-      "instructions": "EMOM 18 (Every Minute on the Minute): Rotate 3 stations, six total rounds.",
+      "instructions": "EMOM 18 (Every Minute on the Minute): Rotate 3 stations, six total rounds. [Apple Watch] Switch to 'HIIT' mode before starting this condition",
       "exercises": [
-        {"name": "Kettlebell Swings + Goblet Squats", "sets": null, "reps": "12 + 6", "load": "53 lb", "notes": "Station 1"},
-        {"name": "Push-ups + Dumbbell Snatches", "sets": null, "reps": "10 + 8", "load": null, "notes": "Station 2"},
+        {"name": "KB Swings +
+Goblet Squats", "sets": null, "reps": "12 + 6", "load": "45 lb", "notes": "Station 1"},
+        {
+        "name": "Push-Ups + DB Snatches", "sets": null, "reps": "10 + 8", "load": "50 lb", "notes": "Station 2"},
         {"name": "Treadmill Run", "sets": null, "reps": "12 Cals", "load": null, "notes": "Station 3"}
       ]
     },
@@ -52,12 +54,13 @@
       "id": "B4",
       "name": "Optional Finisher",
       "type": "conditioning",
-      "rest_seconds": null,
-      "instructions": "3 rounds: 30-sec Farmer Carry + 15 Sit-ups + 30-sec Plank",
+      "instructions": "3 rounds: 30-sec Farmer Carry (50 lb DBs) + 15 Sit-ups + 30-sec Plank. [Apple Watch] switch back to 'Functional Strength Training'.",
       "exercises": [
-        {"name": "Farmer Carry", "sets": null, "reps": "0:30", "load": null, "notes": "Heavy DBs or KBs"},
-        {"name": "Sit-ups", "sets": null, "reps": 15, "load": null, "notes": null},
-        {"name": "Plank", "sets": null, "reps": "0:00", "load": null, "notes": null}
+        {"name": "Farmer Carry", "sets": null, "reps": "0:30", "load": null, "notes": "50 lb DBs"},
+        {
+        "name": "Sit-ups", "sets": null, "reps": 15, "load": null, "notes": null},
+        {
+        "name": "Plank", "sets": null, "reps": "1:00", "load": null, "notes": null}
       ]
     }
   ]
