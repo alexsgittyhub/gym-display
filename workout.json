@@ -1,52 +1,63 @@
 {
-  "date": "2025-11-30",
-  "title": "Press Hard or Go Home",
-  "notes": "Shoulder & Triceps pump session with a core destroyer. Added outside sprints for an extra power touch.",
+  "date": "2025-12-07",
+  "title": "Return of the Quadzilla",
+  "notes": "Full-body reboot after a week off. Moderate weights, crisp technique, no gnindy failure. Ends with a satisfying sweat.",
   "warmup": {
-    "description": "Incline run + dynamic activation",
+    "description": "Incline treadmill + dynamic flow",
     "items": [
-      "1 mile run at 5% -incline, build up heat last 0.25",
-      "Arm circles and band pull-aparts x20",
-      "Scap push-ups x15",
-      "Low-load OherHead Press x10"
+      "5-min incline walk or jog @ brisk pace",
+      "10 Air Squats + 10 Lunges + 10 Push-ups (x2 rounds)",
+      "10 Kettlebell RDLs (light)",
+      "10 Shoulder openers with band",
+      "30-sec high knees + 30-sec butt kicks (x2 rounds)"
     ]
   },
   "blocks": [
     {
-      "id": "A",
-      "name": "Shoulder & Triceps Annihilation",
-      "type": "strength",
-      "rest_seconds": null,
-      "instructions": "Alternate through the moves, rest only as needed.",
+      "id": "B-1",
+      "name": "Strength Reboot (Lower Pull + Push)",
+      "type": "supeset",
+      "rest_seconds": 90,
+      "instructions": "Focus on controlled tempo and clean reps.",
       "exercises": [
-        {"name": "Barbell Overhead Press", "sets": 5, "reps": 8, "load": "95 lbs", "notes": null},
-        {"name": "Close-Grip Bench Press", "sets": 4, "reps": 10, "load": "135 lbs", "notes": null},
-        {"name": "Dumbbell Lateral Raise", "sets": 4, "reps": 15, "load": "25 lbs each", "notes": null},
-        {"name": "Dumbbel Overhead Triceps Extension", "sets": 3, "reps": 12, "load": "40 lb DB", "notes": null}
+        {"name": "Barbell Deadlift", "sets": 4, "reps": 5, "load": "225 lb", "notes": "@` 70% 5RM"},
+        {"name": "Dumbbell Bench Press", "sets": 4, "reps": 8, "load": "60 lb each", "notes": null}
       ]
     },
     {
-      "id": "SPrints",
-      "name": "Outside Sprint Set",
-      "type": "conditioning",
+      "id": "B-2",
+      "name": "Upper Pull + Core Stability",
+      "type": "supeset",
       "rest_seconds": 60,
-      "instructions": "3-5s repeats, full sprints, focus on recovery.",
+      "instructions": "Superset: Pull-Ups + Hanging Knee Raises",
       "exercises": [
-        {"name": "150ft Sprint", "sets": 5, "reps": "20", "load": null, "notes": "Maximum effort each rep"}
+        {"name": "Pull-Ups", "sets": 4, "reps": "6-8", "load": null, "notes": "add band or weight as needed"},
+        {"name": "Hanging Knee Raises", "sets": 4, "reps": "10-12", "load": null, "notes": null},
+        {"name": "Barbell Rows", "sets": 1, "reps": 10, "load": "135 lb", "notes": "Optional if feeling strong"}
       ]
     },
     {
-      "id": "B",
-      "name": "The Corepocalypse",
+      "id": "B-3",
+      "name": "The Sweat Protocol",
       "type": "conditioning",
       "rest_seconds": null,
-      "instructions": "Asmany rounds as reps in 7 minutes.",
+      "instructions": "EMOM 18 (Every Minute on the Minute): Rotate 3 stations, six total rounds.",
       "exercises": [
-        {"name": "Sit-ups", "sets": null, "reps": "15", "load": null, "notes": null},
-        {"name": "Hanging Knee Raises", "sets": null, "reps": 10, "load": null, "notes": null},
-        {"name": "Russian Twists", "sets": null, "reps": "20 (10/side)", "load": null, "notes": null},
-        {"name": "Dumbbell Plank Drags", "sets": null, "reps": 10, "load": "25 lb", "notes": null},
-        {"name": "Forearm Plank", "sets": null, "reps": "30s", "load": null, "notes": null}
+        {"name": "Kettlebell Swings + Goblet Squats", "sets": null, "reps": "12 + 6", "load": "53 lb", "notes": "Station 1"},
+        {"name": "Push-ups + Dumbbell Snatches", "sets": null, "reps": "10 + 8", "load": null, "notes": "Station 2"},
+        {"name": "Treadmill Run", "sets": null, "reps": "12 Cals", "load": null, "notes": "Station 3"}
+      ]
+    },
+    {
+      "id": "B4",
+      "name": "Optional Finisher",
+      "type": "conditioning",
+      "rest_seconds": null,
+      "instructions": "3 rounds: 30-sec Farmer Carry + 15 Sit-ups + 30-sec Plank",
+      "exercises": [
+        {"name": "Farmer Carry", "sets": null, "reps": "0:30", "load": null, "notes": "Heavy DBs or KBs"},
+        {"name": "Sit-ups", "sets": null, "reps": 15, "load": null, "notes": null},
+        {"name": "Plank", "sets": null, "reps": "0:00", "load": null, "notes": null}
       ]
     }
   ]
