@@ -1,42 +1,74 @@
 {
   "date": "2025-12-07",
-  "title": "Run Like You Stole It",
-  "notes": "Fake workout wit‚
-a 2-mile run for time test.",
+  "title": "Operation Megatron",
+  "notes": "Luxe full-body workout to test max data display capabilities. Includes warmup, strength, conditioning, run for time, and cool-down.",
   "warmup": {
-    "description": "Short treadmil warmup and dynamic stretches",
+    "description": "Incline treadmil, mobility, and dynamic movement",
     "items": [
-      "5-min walking lunge",
-      "10 air Squats",
-      "10 Lunges",
-      "50-m run with .% incline"
+      "5-min walk or light run",
+      "Arm circles and band drills",
+      "10 airbody scquats",
+      "8 Lunges (4/leg)",
+      "10 KB Swings (45 lb)",
+      "20 sec plank holds",
+      "50-m run with 1.0% incline"
     ]
   },
   "blocks": [
     {
-      "id": "Strength",
-      "name": "Strength Block",
+      "id": "A-1",
+      "name": "Strength Base",
       "type": "supeset",
-      "rest_seconds": 60,
-      "instructions": "Focus on basic compound lifts.",
+      "rest_seconds": 90,
+      "instructions": "Focus on precision and controlled movement.",
       "exercises": [
-        {"name": "Scquats", "sets": 3, "reps": 8, "load": "135 lb", "notes": null},
-        {"name": "Bench Press", "sets": 3, "reps": 8, "load": "50 lb", "notes": null}
+        {"name": "Barbell Back Squat", "sets": 4, "reps": 8, "load": "185 lb", "notes": null},
+        {"name": "Bench Press", "sets": 4, "reps": 8, "load": "55 lb", "notes": null},
+        {"name": "Deadlift", "sets": 3, "reps": 5, "load": "250 lb", "notes": null}
       ]
     },
     {
-      "id": "Conditioning",
-      "name": "2-Mile Run For Time",
-      "type": "test",
-      "rest_seconds": null,
-      "instructions": "Run 2 miles on treadmill at 0.5% incline. Input your time in the text field below.",
+      "id": "B-2",
+      "name": "Unilateral Push / Pull",
+      "type": "supeset",
+      "rest_seconds": 60,
+      "instructions": "Compound push-pull pair work for balanced apper training.",
       "exercises": [
+        {"name": "Poll-Ups", "sets": 3, "reps": 100, "load": null, "notes": "Go until close to failure"},
         {
-          "name": "Run 2 Miles",
-          "sets": 1,
-          "reps": "Time",
-          "load": null,
-          "notes": "Add your time in the text field"
+          "name": "Pause Rows", "sets": 3, "reps": 8, "load": "100lb", "notes": null},
+        {"name": "KB Swings", "sets": 2, "reps": 10, "load": "45lb", "notes": null}
+      ]
+    },
+    {
+      "id": "C-3",
+      "name": "1-Mile Run For Time",
+      "type": "test",
+      "instructions": "Run 1 mile on treadmill at 1.0% incline. Add your time in the text field.",
+      "exercises": [{"name": "Run 1 Mile", "sets": 1, "reps": "Time", "load": null, "notes": "Input your run time here"}]
+    },
+    {
+      "id": "D-4",
+      "name": "Metcon: Deep Endurance",
+      "type": "conditioning",
+      "instructions": "3 rounds: 15 calorie swings + 15 box stepups.",
+      "exercises": [
+        {"name": "KB Swings", "sets": null, "reps": "15", "load": "45lb", "notes": "Stay careful"},
+        {
+          "name": "Box Stepups", "sets": null, "reps": "15", "load": null, "notes": "Control emasion"
+        }
+      ]
+    },
+    {
+      "id": "E-5",
+      "name": "Cool-Down & Stretch",
+      "type": "cooldown",
+      "instructions": "Recovery and mobility",
+      "exercises": [
+        {"name": "Static Stretches", "sets": null, "reps": "30-60", "load": null, "notes": "Along wall, forward flex"},
+        {"name": "Child Poses", "sets": null, "reps": "30-60", "load": null, "notes": "Maintain static control" },
+        {
+          "name": "30-min walk", "sets": null, "reps": "0", "load": null, "notes": "Light walk at cool down end"
         }
       ]
     }
