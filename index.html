@@ -3,257 +3,332 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Log - Dark Mode</title>
+    <title>Neon Workout Log v2.1</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f0f13;
-            --card-bg: #1e1e24;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --accent: #00f2ea; /* Neon Cyan */
-            --accent-glow: rgba(0, 242, 234, 0.2);
-            --border: #333333;
+            /* CYBERPUNK PALETTE */
+            --bg-deep: #050505;
+            --bg-panel: #111111;
+            --primary: #00ff9d; /* Neon Green */
+            --secondary: #00d2ff; /* Neon Blue */
+            --alert: #ff0055;
+            --text-main: #e0e0e0;
+            --text-dim: #666666;
+            
+            --glow: 0 0 10px rgba(0, 255, 157, 0.3);
+            --border-radius: 4px;
         }
 
         body {
-            font-family: 'Courier New', Courier, monospace; /* Tech/Terminal feel */
-            background-color: var(--bg-color);
+            background-color: var(--bg-deep);
             color: var(--text-main);
+            font-family: 'Share Tech Mono', monospace; /* The specific font */
             margin: 0;
             padding: 20px;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
+            align-items: flex-start;
         }
 
-        .container {
+        .interface {
             width: 100%;
-            max-width: 500px;
+            max-width: 550px;
+            position: relative;
         }
 
-        /* HEADER */
+        /* HEADER & STATUS BAR */
         header {
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid var(--primary);
             padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
         }
 
         h1 {
-            font-size: 1.5rem;
             margin: 0;
+            font-size: 2rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--accent);
-            text-shadow: 0 0 10px var(--accent-glow);
+            text-shadow: var(--glow);
+            color: var(--primary);
         }
 
-        /* WARMUP - BIG TEXT TWEAK */
-        .warmup-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--accent);
-            padding: 20px;
-            border-radius: 4px;
-            margin-bottom: 30px;
-        }
-
-        .warmup-label {
+        .status {
             font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            color: var(--primary);
+            animation: blink 2s infinite;
         }
 
-        .warmup-content {
-            font-size: 1.8rem; /* Requested Tweak: Bigger */
-            font-weight: bold;
+        @keyframes blink { 50% { opacity: 0.5; } }
+
+        /* WARMUP SECTION - BIG & BOLD */
+        .warmup-panel {
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px solid var(--secondary);
+            border-left: 6px solid var(--secondary);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.1);
+        }
+
+        .label-text {
+            display: block;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin-bottom: 8px;
+        }
+
+        .warmup-display {
+            font-size: 1.8rem; /* REQUESTED TWEAK: BIGGER */
             color: white;
             line-height: 1.2;
         }
 
-        /* WORKOUT CARD */
-        .exercise-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+        /* EXERCISE CARDS */
+        .card {
+            background-color: var(--bg-panel);
+            border: 1px solid #333;
             padding: 20px;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .exercise-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 5px;
-            display: block;
+        .card:hover {
+            border-color: var(--text-dim);
+            transform: translateX(5px);
         }
 
-        .exercise-meta {
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            display: block;
-            font-family: sans-serif;
+        /* Running cards get a slight blue tint border to differentiate */
+        .card.type-run {
+            border-right: 2px solid var(--secondary);
         }
 
-        /* INPUTS */
-        .input-row {
+        .ex-header {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .ex-name {
+            font-size: 1.3rem;
+            color: white;
+        }
+
+        .ex-target {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            background: #1a1a1a;
+            padding: 4px 8px;
+            border-radius: 2px;
+        }
+
+        /* INPUT GRID */
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
 
-        .input-group {
-            flex: 1;
+        .input-wrapper {
+            position: relative;
         }
 
-        label {
+        .input-wrapper label {
             display: block;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            margin-bottom: 5px;
             text-transform: uppercase;
         }
 
         input {
             width: 100%;
-            background: #000;
-            border: 1px solid var(--border);
-            color: white;
-            padding: 12px;
-            font-family: 'Courier New', Courier, monospace;
+            background: black;
+            border: 1px solid #333;
+            color: var(--primary);
+            font-family: 'Share Tech Mono', monospace;
             font-size: 1.1rem;
-            border-radius: 4px;
+            padding: 12px;
             box-sizing: border-box;
-            transition: 0.2s;
+            outline: none;
+            transition: 0.3s;
         }
 
         input:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 8px var(--accent-glow);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
         }
 
-        /* BUTTON */
-        .log-btn {
+        /* Different input color for running to separate visually */
+        .type-run input:focus {
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+            color: var(--secondary);
+        }
+
+        /* BUTTONS */
+        .btn-log {
             width: 100%;
             padding: 15px;
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            font-family: 'Courier New', Courier, monospace;
+            margin-top: 10px;
+            background: var(--primary);
+            color: black;
+            border: none;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1rem;
             font-weight: bold;
-            font-size: 1rem;
             text-transform: uppercase;
             cursor: pointer;
+            box-shadow: var(--glow);
             transition: 0.3s;
-            margin-top: 10px;
         }
 
-        .log-btn:hover {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 20px var(--accent-glow);
+        .btn-log:hover {
+            background: white;
+            box-shadow: 0 0 20px var(--primary);
         }
 
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>Session Log_01</h1>
-        <span style="color: var(--text-muted); font-size: 0.9rem;">> System Ready</span>
-    </header>
+    <div class="interface">
+        <header>
+            <h1>Workout_Log</h1>
+            <span class="status">:: SYSTEM ONLINE ::</span>
+        </header>
 
-    <div class="warmup-box">
-        <div class="warmup-label">Required Warmup</div>
-        <div class="warmup-content">
-            5 min Row + Dynamic Stretch
+        <div class="warmup-panel">
+            <span class="label-text">Initiation Sequence</span>
+            <div class="warmup-display">
+                5 min Row @ 2:00 pace<br>
+                + Shoulder Halo
+            </div>
         </div>
+
+        <div id="workout-stream">
+            </div>
+
+        <button class="btn-log" onclick="completeSession()">Commit Session Data</button>
     </div>
 
-    <div id="workout-container">
-        </div>
-
-    <button class="log-btn" onclick="saveLog()">> Save Data</button>
-</div>
-
-<script>
-    // Data Structure
-    const workoutData = [
-        { id: 1, name: "Deadlift", type: "strength", target: "3 x 5" },
-        { id: 2, name: "Overhead Press", type: "strength", target: "4 x 8" },
-        { id: 3, name: "Treadmill Sprint", type: "run", target: "Run for Time" }, // Type: RUN
-        { id: 4, name: "Plank", type: "strength", target: "3 x 60s" }
-    ];
-
-    const container = document.getElementById('workout-container');
-
-    function render() {
-        container.innerHTML = '';
-        
-        workoutData.forEach(ex => {
-            let inputHTML = '';
-
-            // --- LOGIC TWEAK: Check if it's a run or strength ---
-            if (ex.type === 'run') {
-                inputHTML = `
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label>Duration (mm:ss)</label>
-                            <input type="text" placeholder="00:00" id="in-${ex.id}-1">
-                        </div>
-                        <div class="input-group">
-                            <label>Incline (%)</label>
-                            <input type="number" placeholder="0.0" step="0.5" id="in-${ex.id}-2">
-                        </div>
-                    </div>
-                `;
-            } else {
-                inputHTML = `
-                    <div class="input-row">
-                        <div class="input-group">
-                            <label>Weight (lbs)</label>
-                            <input type="number" placeholder="000" id="in-${ex.id}-1">
-                        </div>
-                        <div class="input-group">
-                            <label>Reps / Secs</label>
-                            <input type="number" placeholder="0" id="in-${ex.id}-2">
-                        </div>
-                    </div>
-                `;
+    <script>
+        // --- CONFIGURATION ---
+        const sessionData = [
+            { 
+                id: 101, 
+                name: "Back Squat", 
+                type: "strength", // Standard Lifting
+                target: "3 sets x 5 reps" 
+            },
+            { 
+                id: 102, 
+                name: "Overhead Press", 
+                type: "strength", 
+                target: "3 sets x 8 reps" 
+            },
+            { 
+                id: 103, 
+                name: "Interval Sprint", 
+                type: "run", // <--- THE RUN TWEAK
+                target: "15 min Intervals" 
+            },
+            { 
+                id: 104, 
+                name: "Weighted Pull-up", 
+                type: "strength", 
+                target: "3 sets x Failure" 
             }
+        ];
 
-            const card = document.createElement('div');
-            card.className = 'exercise-card';
-            card.innerHTML = `
-                <span class="exercise-title">${ex.name}</span>
-                <span class="exercise-meta">// Target: ${ex.target}</span>
-                ${inputHTML}
-            `;
-            container.appendChild(card);
-        });
-    }
+        const stream = document.getElementById('workout-stream');
 
-    function saveLog() {
-        console.log("Saving...");
-        const btn = document.querySelector('.log-btn');
-        const originalText = btn.innerText;
-        
-        btn.innerText = "> SAVED";
-        btn.style.background = "var(--accent)";
-        btn.style.color = "#000";
-        
-        setTimeout(() => {
-            btn.innerText = originalText;
-            btn.style.background = "transparent";
-            btn.style.color = "var(--accent)";
-        }, 2000);
-    }
+        // --- RENDER FUNCTION ---
+        function renderInterface() {
+            stream.innerHTML = '';
 
-    render();
-</script>
+            sessionData.forEach(ex => {
+                const card = document.createElement('div');
+                
+                // Add specific class if it is a run for styling cues
+                card.className = `card type-${ex.type}`;
 
+                // --- LOGIC: SWITCH INPUTS BASED ON TYPE ---
+                let inputsHtml = '';
+
+                if (ex.type === 'run') {
+                    // Logic: If Run, ask for Time and Incline
+                    inputsHtml = `
+                        <div class="input-grid">
+                            <div class="input-wrapper">
+                                <label>Total Time (MM:SS)</label>
+                                <input type="text" placeholder="e.g. 15:30" id="in-${ex.id}-time">
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Avg Incline (%)</label>
+                                <input type="number" placeholder="1.0" step="0.5" id="in-${ex.id}-incline">
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    // Logic: If Strength, ask for Weight and Reps
+                    inputsHtml = `
+                        <div class="input-grid">
+                            <div class="input-wrapper">
+                                <label>Load (LBS/KG)</label>
+                                <input type="number" placeholder="000" id="in-${ex.id}-weight">
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Reps Complete</label>
+                                <input type="number" placeholder="0" id="in-${ex.id}-reps">
+                            </div>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="ex-header">
+                        <span class="ex-name">${ex.name}</span>
+                        <span class="ex-target">[${ex.target}]</span>
+                    </div>
+                    ${inputsHtml}
+                `;
+
+                stream.appendChild(card);
+            });
+        }
+
+        // --- ACTION FUNCTION ---
+        function completeSession() {
+            const btn = document.querySelector('.btn-log');
+            
+            // Visual feedback
+            btn.innerText = "Processing...";
+            btn.style.backgroundColor = "var(--secondary)";
+
+            setTimeout(() => {
+                btn.innerText = "SESSION COMMITTED";
+                btn.style.backgroundColor = "var(--primary)";
+                
+                // Here you would normally save the data to a database
+                console.log("Data Saved");
+            }, 800);
+            
+            setTimeout(() => {
+                btn.innerText = "COMMIT SESSION DATA";
+            }, 2500);
+        }
+
+        // Initialize
+        renderInterface();
+
+    </script>
 </body>
 </html>
