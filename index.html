@@ -3,42 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Workout Log v2.1</title>
+    <title>Neon Workout Log - FIXED</title>
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* CYBERPUNK PALETTE */
+            /* THE "COOL" PALETTE */
             --bg-deep: #050505;
             --bg-panel: #111111;
             --primary: #00ff9d; /* Neon Green */
             --secondary: #00d2ff; /* Neon Blue */
-            --alert: #ff0055;
             --text-main: #e0e0e0;
             --text-dim: #666666;
-            
             --glow: 0 0 10px rgba(0, 255, 157, 0.3);
-            --border-radius: 4px;
         }
 
         body {
             background-color: var(--bg-deep);
             color: var(--text-main);
-            font-family: 'Share Tech Mono', monospace; /* The specific font */
+            font-family: 'Share Tech Mono', monospace, sans-serif;
             margin: 0;
             padding: 20px;
-            min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
         }
 
         .interface {
             width: 100%;
             max-width: 550px;
-            position: relative;
         }
 
-        /* HEADER & STATUS BAR */
+        /* HEADER */
         header {
             border-bottom: 2px solid var(--primary);
             padding-bottom: 15px;
@@ -64,10 +58,9 @@
 
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        /* WARMUP SECTION - BIG & BOLD */
+        /* WARMUP - BIG TEXT RESTORED */
         .warmup-panel {
             background: rgba(0, 210, 255, 0.05);
-            border: 1px solid var(--secondary);
             border-left: 6px solid var(--secondary);
             padding: 20px;
             margin-bottom: 30px;
@@ -80,31 +73,31 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--secondary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .warmup-display {
-            font-size: 1.8rem; /* REQUESTED TWEAK: BIGGER */
+            font-size: 1.8rem; /* Big and clear */
             color: white;
-            line-height: 1.2;
+            line-height: 1.3;
+            font-weight: bold;
         }
 
-        /* EXERCISE CARDS */
+        /* CARDS */
         .card {
             background-color: var(--bg-panel);
             border: 1px solid #333;
             padding: 20px;
             margin-bottom: 20px;
             transition: all 0.3s ease;
-            position: relative;
         }
 
         .card:hover {
             border-color: var(--text-dim);
-            transform: translateX(5px);
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
 
-        /* Running cards get a slight blue tint border to differentiate */
+        /* RUNNING CARDS styling distinction */
         .card.type-run {
             border-right: 2px solid var(--secondary);
         }
@@ -122,22 +115,18 @@
         }
 
         .ex-target {
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: var(--text-dim);
             background: #1a1a1a;
             padding: 4px 8px;
             border-radius: 2px;
         }
 
-        /* INPUT GRID */
+        /* INPUTS */
         .input-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
-        }
-
-        .input-wrapper {
-            position: relative;
         }
 
         .input-wrapper label {
@@ -154,11 +143,10 @@
             border: 1px solid #333;
             color: var(--primary);
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1.1rem;
-            padding: 12px;
+            font-size: 1.2rem;
+            padding: 10px;
             box-sizing: border-box;
             outline: none;
-            transition: 0.3s;
         }
 
         input:focus {
@@ -166,14 +154,14 @@
             box-shadow: var(--glow);
         }
 
-        /* Different input color for running to separate visually */
+        /* Run inputs glow blue instead of green */
         .type-run input:focus {
             border-color: var(--secondary);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
             color: var(--secondary);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
         }
 
-        /* BUTTONS */
+        /* BUTTON */
         .btn-log {
             width: 100%;
             padding: 15px;
@@ -182,19 +170,17 @@
             color: black;
             border: none;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
             text-transform: uppercase;
             cursor: pointer;
             box-shadow: var(--glow);
-            transition: 0.3s;
         }
 
         .btn-log:hover {
             background: white;
             box-shadow: 0 0 20px var(--primary);
         }
-
     </style>
 </head>
 <body>
@@ -208,86 +194,62 @@
         <div class="warmup-panel">
             <span class="label-text">Initiation Sequence</span>
             <div class="warmup-display">
-                5 min Row @ 2:00 pace<br>
-                + Shoulder Halo
+                5 min Row @ 2:00 pace<br>+ Shoulder Halo
             </div>
         </div>
 
-        <div id="workout-stream">
-            </div>
+        <div id="workout-stream"></div>
 
         <button class="btn-log" onclick="completeSession()">Commit Session Data</button>
     </div>
 
     <script>
-        // --- CONFIGURATION ---
+        // --- DATA ---
         const sessionData = [
-            { 
-                id: 101, 
-                name: "Back Squat", 
-                type: "strength", // Standard Lifting
-                target: "3 sets x 5 reps" 
-            },
-            { 
-                id: 102, 
-                name: "Overhead Press", 
-                type: "strength", 
-                target: "3 sets x 8 reps" 
-            },
-            { 
-                id: 103, 
-                name: "Interval Sprint", 
-                type: "run", // <--- THE RUN TWEAK
-                target: "15 min Intervals" 
-            },
-            { 
-                id: 104, 
-                name: "Weighted Pull-up", 
-                type: "strength", 
-                target: "3 sets x Failure" 
-            }
+            { id: 101, name: "Back Squat", type: "strength", target: "3 x 5" },
+            { id: 102, name: "Overhead Press", type: "strength", target: "3 x 8" },
+            { id: 103, name: "Interval Sprint", type: "run", target: "15 min Intervals" }, // The Run
+            { id: 104, name: "Pull-ups", type: "strength", target: "3 x Failure" }
         ];
 
         const stream = document.getElementById('workout-stream');
 
-        // --- RENDER FUNCTION ---
+        // --- RENDER ---
         function renderInterface() {
             stream.innerHTML = '';
-
+            
             sessionData.forEach(ex => {
                 const card = document.createElement('div');
-                
-                // Add specific class if it is a run for styling cues
                 card.className = `card type-${ex.type}`;
 
-                // --- LOGIC: SWITCH INPUTS BASED ON TYPE ---
+                // --- LOGIC: Run vs Strength Inputs ---
                 let inputsHtml = '';
 
                 if (ex.type === 'run') {
-                    // Logic: If Run, ask for Time and Incline
+                    // Run: Time & Incline
                     inputsHtml = `
                         <div class="input-grid">
                             <div class="input-wrapper">
                                 <label>Total Time (MM:SS)</label>
-                                <input type="text" placeholder="e.g. 15:30" id="in-${ex.id}-time">
+                                <input type="text" placeholder="00:00" id="in-${ex.id}-val1">
                             </div>
                             <div class="input-wrapper">
-                                <label>Avg Incline (%)</label>
-                                <input type="number" placeholder="1.0" step="0.5" id="in-${ex.id}-incline">
+                                <label>Incline (%)</label>
+                                <input type="number" placeholder="0.0" step="0.5" id="in-${ex.id}-val2">
                             </div>
                         </div>
                     `;
                 } else {
-                    // Logic: If Strength, ask for Weight and Reps
+                    // Strength: Weight & Reps
                     inputsHtml = `
                         <div class="input-grid">
                             <div class="input-wrapper">
-                                <label>Load (LBS/KG)</label>
-                                <input type="number" placeholder="000" id="in-${ex.id}-weight">
+                                <label>Load (LBS)</label>
+                                <input type="number" placeholder="000" id="in-${ex.id}-val1">
                             </div>
                             <div class="input-wrapper">
                                 <label>Reps Complete</label>
-                                <input type="number" placeholder="0" id="in-${ex.id}-reps">
+                                <input type="number" placeholder="0" id="in-${ex.id}-val2">
                             </div>
                         </div>
                     `;
@@ -300,35 +262,45 @@
                     </div>
                     ${inputsHtml}
                 `;
-
                 stream.appendChild(card);
             });
         }
 
-        // --- ACTION FUNCTION ---
+        // --- LOGIC: THIS WAS BROKEN, NOW FIXED ---
         function completeSession() {
-            const btn = document.querySelector('.btn-log');
+            let logSummary = "SESSION REPORT:\n----------------\n";
             
-            // Visual feedback
-            btn.innerText = "Processing...";
-            btn.style.backgroundColor = "var(--secondary)";
+            // Loop through data and grab the matching inputs
+            sessionData.forEach(ex => {
+                const val1 = document.getElementById(`in-${ex.id}-val1`).value || "--";
+                const val2 = document.getElementById(`in-${ex.id}-val2`).value || "--";
 
-            setTimeout(() => {
-                btn.innerText = "SESSION COMMITTED";
-                btn.style.backgroundColor = "var(--primary)";
-                
-                // Here you would normally save the data to a database
-                console.log("Data Saved");
-            }, 800);
+                if (ex.type === 'run') {
+                    logSummary += `${ex.name}: ${val1} min @ ${val2}% incline\n`;
+                } else {
+                    logSummary += `${ex.name}: ${val1} lbs x ${val2} reps\n`;
+                }
+            });
+
+            // Show feedback
+            const btn = document.querySelector('.btn-log');
+            const originalText = btn.innerText;
             
+            btn.innerText = "DATA SAVED ✓";
+            btn.style.background = "var(--secondary)";
+            
+            // Actually show the data so user knows it worked
+            alert(logSummary);
+
+            // Reset button after 2 seconds
             setTimeout(() => {
-                btn.innerText = "COMMIT SESSION DATA";
-            }, 2500);
+                btn.innerText = originalText;
+                btn.style.background = "var(--primary)";
+            }, 2000);
         }
 
-        // Initialize
+        // Start
         renderInterface();
-
     </script>
 </body>
 </html>
