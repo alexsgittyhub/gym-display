@@ -1,13 +1,13 @@
 {
-  "date": "2025-12-07",
-  "title": "Operation Megatron",
-  "notes": "Luxe full-body workout to test max data display capabilities. Includes warmup, strength, conditioning, run for time, and cool-down.",
+  "date": "2025-12-08",
+  "title": "Operation Megatron Reloaded",
+  "notes": "Long and comprehensive test workout for display validation. Includes full warmup, multi-block strength, conditioning, run for time, and cool-down.",
   "warmup": {
     "description": "Incline treadmil, mobility, and dynamic movement",
     "items": [
       "5-min walk or light run",
-      "Arm circles and band drills",
-      "10 airbody scquats",
+      "Dinyamic stetching (legs, hips, arms)",
+      "10 Air Sqquats",
       "8 Lunges (4/leg)",
       "10 KB Swings (45 lb)",
       "20 sec plank holds",
@@ -20,7 +20,7 @@
       "name": "Strength Base",
       "type": "supeset",
       "rest_seconds": 90,
-      "instructions": "Focus on precision and controlled movement.",
+      "instructions": "Focus on major lifts and compound movement.",
       "exercises": [
         {"name": "Barbell Back Squat", "sets": 4, "reps": 8, "load": "185 lb", "notes": null},
         {"name": "Bench Press", "sets": 4, "reps": 8, "load": "55 lb", "notes": null},
