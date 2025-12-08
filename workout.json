@@ -1,26 +1,25 @@
 {
   "date": "2025-12-08",
-  "title": "Operation Megatron Reloaded",
-  "notes": "Long and comprehensive test workout for display validation. Includes full warmup, multi-block strength, conditioning, run for time, and cool-down.",
+  "title": "Operation Megatron - Republish",
+  "notes": "Complete system test push with full warmup, multi-block strength, conditioning blocks, run for time, and cooldown.",
   "warmup": {
-    "description": "Incline treadmil, mobility, and dynamic movement",
+    "description": "Start with treadmill and full movement flow",
     "items": [
-      "5-min walk or light run",
-      "Dinyamic stetching (legs, hips, arms)",
-      "10 Air Sqquats",
-      "8 Lunges (4/leg)",
-      "10 KB Swings (45 lb)",
-      "20 sec plank holds",
-      "50-m run with 1.0% incline"
+      "10-min treadmill warmup with 1.0% incline",
+      "2 rounds of dynamic stretching and mobility (legs, arms, shoulders)",
+      "10 Air Squats",
+      "8 lunges and dynamic stetches",
+      "10 KB Swings",
+      "5 min walk to cool down"
     ]
   },
   "blocks": [
     {
-      "id": "A-1",
+      "id": "A",
       "name": "Strength Base",
       "type": "supeset",
       "rest_seconds": 90,
-      "instructions": "Focus on major lifts and compound movement.",
+      "instructions": "Barell and compound lower boty focus.",
       "exercises": [
         {"name": "Barbell Back Squat", "sets": 4, "reps": 8, "load": "185 lb", "notes": null},
         {"name": "Bench Press", "sets": 4, "reps": 8, "load": "55 lb", "notes": null},
@@ -28,40 +27,38 @@
       ]
     },
     {
-      "id": "B-2",
-      "name": "Unilateral Push / Pull",
+      "id": "B",
+      "name": "Upper Push / Pull",
       "type": "supeset",
       "rest_seconds": 60,
-      "instructions": "Compound push-pull pair work for balanced apper training.",
+      "instructions": "Compound push-pull pair focus with balanced muscle engagement.",
       "exercises": [
-        {"name": "Poll-Ups", "sets": 3, "reps": 100, "load": null, "notes": "Go until close to failure"},
-        {
-          "name": "Pause Rows", "sets": 3, "reps": 8, "load": "100lb", "notes": null},
-        {"name": "KB Swings", "sets": 2, "reps": 10, "load": "45lb", "notes": null}
+        {"name": "Pull-Ups", "sets": 4, "reps": 10, "load": null, "notes": null},
+        {"name": "Pause Rows", "sets": 3, "reps": 8, "load": "100 lb", "notes": null},
+        {"name": "KB Swings", "sets": 2, "reps": 10, "load": "45 lb", "notes": null}
       ]
     },
     {
-      "id": "C-3",
+      "id": "C",
+      "name": "Conditioning Interval",
+      "type": "conditioning",
+      "instructions": "3 times : 60s on /05s off between stations.",
+      "exercises": [
+        {"name": "Air Byke", "sets": null, "reps": "60", "load": null, "notes": "Station 1"},
+        {"name": "KB Swings", "sets": null, "reps": "50", "load": "45 lb", "notes": "Station 2"},
+        {"name": "Burpees", "sets": null, "reps": "40", "load": null, "notes": "Station 3"}
+      ]
+    },
+    {
+      "id": "D-1",
       "name": "1-Mile Run For Time",
       "type": "test",
-      "instructions": "Run 1 mile on treadmill at 1.0% incline. Add your time in the text field.",
-      "exercises": [{"name": "Run 1 Mile", "sets": 1, "reps": "Time", "load": null, "notes": "Input your run time here"}]
+      "instructions": "Run 1 mile on treadmill at 1.0% incline. Record time in text field.",
+      "exercises": [{"name": "Run 1 Mile", "sets": 1, "reps": "Time", "load": null, "notes": "Input time here"}]
     },
     {
-      "id": "D-4",
-      "name": "Metcon: Deep Endurance",
-      "type": "conditioning",
-      "instructions": "3 rounds: 15 calorie swings + 15 box stepups.",
-      "exercises": [
-        {"name": "KB Swings", "sets": null, "reps": "15", "load": "45lb", "notes": "Stay careful"},
-        {
-          "name": "Box Stepups", "sets": null, "reps": "15", "load": null, "notes": "Control emasion"
-        }
-      ]
-    },
-    {
-      "id": "E-5",
-      "name": "Cool-Down & Stretch",
+      "id": "E-2",
+      "name": "Cool Down",
       "type": "cooldown",
       "instructions": "Recovery and mobility",
       "exercises": [
