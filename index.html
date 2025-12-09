@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GymOS v3.3 (Stable)</title>
+    <title>GymOS v3.4</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,7 +77,7 @@
         /* Layout */
         .container { padding: 0 16px; }
 
-        /* Warmup Card - BIG TEXT FIX */
+        /* Warmup Card */
         .warmup-card {
             background: var(--card-bg); border: 1px solid var(--card-border);
             border-radius: 12px; padding: 20px; margin-bottom: 24px;
@@ -90,7 +90,7 @@
         }
         .warmup-item {
             color: #fff; padding: 8px 0; 
-            font-size: 1.4rem; /* INCREASED SIZE */
+            font-size: 1.4rem; 
             font-weight: 500;
             border-bottom: 1px solid #222;
             line-height: 1.3;
@@ -175,28 +175,41 @@
             border-radius: 4px;
         }
 
-        /* Input Areas */
-        .log-area {
-            margin-top: 12px; padding-top: 12px;
-            border-top: 1px solid #222;
-            display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+        /* --- NEW INPUT STYLES --- */
+        .input-container {
+            margin-top: 12px; 
+            border-top: 1px solid #222; 
+            padding-top: 12px;
+        }
+
+        /* Lift Set Grid */
+        .set-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: flex-start; /* Left align for multiple rows */
         }
         
-        /* The standard Strength Input */
+        .set-input-wrapper {
+            position: relative;
+            flex: 0 0 calc(33.33% - 6px); /* 3 across on mobile */
+        }
+
         .log-input {
             background: #000; border: 1px solid #333;
             color: #fff; padding: 8px; border-radius: 4px;
-            width: 80px; text-align: center; font-family: var(--font-mono);
+            width: 100%; text-align: center; font-family: var(--font-mono);
             font-size: 1rem;
         }
         .log-input:focus { border-color: var(--accent); outline: none; }
+        .log-input::placeholder { color: #444; font-size: 0.8rem; }
 
         /* Run Inputs */
         .run-input-group {
             display: flex; gap: 8px; width: 100%; justify-content: flex-end;
         }
         .input-labeled { position: relative; }
-        .input-labeled input { width: 90px; padding-right: 5px; }
+        .input-labeled input { width: 90px; padding-right: 20px; }
         .unit-label { 
             position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
             font-size: 0.7rem; color: #555; pointer-events: none;
@@ -301,31 +314,24 @@
         let wakeLock = null;
         let totalExercises = 0;
 
-        // --- DEMO DATA: SHOWS ALL 3 STATES (Lift, Run, Mobility) ---
+        // --- DEMO DATA ---
         const DEMO_DATA = {
             date: "DEMO MODE",
-            title: "GYMOS v3.3",
-            warmup: {
-                description: "Test Sequence:",
-                items: ["5 min Run", "20 Air Squats", "Shoulder Dislocates"]
-            },
+            title: "GYMOS v3.4",
+            warmup: { description: "Test:", items: ["5 min Run", "20 Air Squats"] },
             blocks: [
                 {
-                    name: "Strength",
+                    name: "Strength Block",
                     exercises: [
-                        { name: "Barbell Squat", sets: 3, reps: 5, load: "225 lbs", type: "lift" }
+                        { name: "Barbell Squat", sets: 3, reps: 5, load: "225 lbs", type: "lift" },
+                        { name: "Bench Press", sets: 4, reps: 8, load: "185 lbs", type: "lift" }
                     ]
                 },
                 {
-                    name: "Conditioning",
+                    name: "Metcon",
                     exercises: [
-                        { name: "Interval Run", type: "run", notes: "Hard pace" }
-                    ]
-                },
-                {
-                    name: "Cooldown",
-                    exercises: [
-                        { name: "Child's Pose", type: "mobility", notes: "Hold for 2 mins" } // Should NOT show input
+                        { name: "Pushups", sets: 4, reps: "Max", type: "bodyweight" },
+                        { name: "Run", type: "run", notes: "Sprint" }
                     ]
                 }
             ]
@@ -343,7 +349,7 @@
                 const data = await res.json();
                 render(data);
             } catch (e) {
-                console.log("Using Demo Data due to fetch error.");
+                console.log("Using Demo Data.");
                 render(DEMO_DATA);
             }
         }
@@ -356,22 +362,19 @@
             container.innerHTML = '';
             totalExercises = 0;
 
-            // 1. Warmup
+            // Warmup
             if(data.warmup) {
                 const wCard = document.createElement('div');
                 wCard.className = 'warmup-card';
                 let html = `<span class="warmup-label">WARMUP PROTOCOL</span>`;
                 html += `<div style="margin-bottom:10px; color:#aaa; font-size:0.9rem;">${data.warmup.description || ''}</div>`;
-                (data.warmup.items || []).forEach(item => {
-                    html += `<div class="warmup-item">${item}</div>`;
-                });
+                (data.warmup.items || []).forEach(item => { html += `<div class="warmup-item">${item}</div>`; });
                 wCard.innerHTML = html;
                 container.appendChild(wCard);
             }
 
-            // 2. Blocks
+            // Blocks
             (data.blocks || []).forEach(block => {
-                // Header
                 const bHead = document.createElement('div');
                 bHead.className = 'block-header';
                 let timerHtml = '';
@@ -395,27 +398,24 @@
                     container.appendChild(instr);
                 }
 
-                // Exercises
                 (block.exercises || []).forEach(ex => {
                     totalExercises++;
                     const exCard = document.createElement('div');
                     exCard.className = 'exercise-card';
-                    
-                    // Default to 'lift' if type is missing, for backward compatibility
                     const type = (ex.type || 'lift').toLowerCase();
                     
                     exCard.dataset.type = type;
                     exCard.dataset.name = ex.name;
                     exCard.onclick = (e) => toggleComplete(exCard, e);
 
-                    // --- INPUT LOGIC START ---
+                    // --- INPUT GENERATION ---
                     let inputHtml = '';
                     let loadPill = '';
 
-                    // CASE 1: RUN (Time & Incline)
+                    // 1. RUN
                     if(type === 'run') {
                          inputHtml = `
-                            <div style="margin-top:12px; border-top:1px solid #222; padding-top:12px;">
+                            <div class="input-container">
                                 <div class="run-input-group">
                                     <div class="input-labeled">
                                         <input type="text" class="log-input run-time" placeholder="Time" onclick="event.stopPropagation()">
@@ -426,32 +426,48 @@
                                         <span class="unit-label">%</span>
                                     </div>
                                 </div>
-                            </div>
-                        `;
+                            </div>`;
                     } 
-                    // CASE 2: MOBILITY / BODYWEIGHT (No Inputs)
-                    else if(type === 'mobility' || type === 'bodyweight') {
-                        // Ensure we have an empty pill to keep layout consistent if needed, or nothing.
-                        // We do NOT render the inputHtml block here.
+                    // 2. BODYWEIGHT (Total Reps)
+                    else if(type === 'bodyweight') {
+                         inputHtml = `
+                            <div class="input-container">
+                                <div style="display:flex; justify-content:flex-end; align-items:center; gap:10px;">
+                                    <span style="font-size:0.7rem; color:#444">TOTAL REPS:</span>
+                                    <input type="number" class="log-input bw-reps" placeholder="Total" style="width:80px" onclick="event.stopPropagation()">
+                                </div>
+                            </div>`;
+                    }
+                    // 3. MOBILITY (No Inputs)
+                    else if(type === 'mobility') {
                         inputHtml = ''; 
                     }
-                    // CASE 3: LIFT / STRENGTH (Default)
+                    // 4. LIFT (Per-Set Inputs)
                     else {
                         const loadString = ex.load || "-";
                         const isCalculable = /\d+/.test(loadString) && (loadString.includes('lb') || !isNaN(loadString));
                         const loadAttr = isCalculable ? `onclick="showPlateMath('${loadString}', event)"` : '';
-                        
                         loadPill = `<div class="load-pill" ${loadAttr}>${loadString}</div>`;
                         
-                        // The original v3.1 "Log Actual" field
+                        // Loop to create input boxes based on "sets" integer
+                        const setsCount = parseInt(ex.sets) || 1;
+                        let gridHtml = '';
+                        for(let i=1; i <= setsCount; i++) {
+                            gridHtml += `
+                                <div class="set-input-wrapper">
+                                    <input type="number" class="log-input lift-set" placeholder="Set ${i}" onclick="event.stopPropagation()">
+                                </div>
+                            `;
+                        }
+
                         inputHtml = `
-                            <div class="log-area">
-                                <span style="font-size:0.7rem; color:#444">LOG LOAD:</span>
-                                <input type="text" class="log-input strength-weight" placeholder="e.g. 280" onclick="event.stopPropagation()">
+                            <div class="input-container">
+                                <div class="set-grid">
+                                    ${gridHtml}
+                                </div>
                             </div>
                         `;
                     }
-                    // --- INPUT LOGIC END ---
 
                     exCard.innerHTML = `
                         <div class="ex-top">
@@ -492,25 +508,37 @@
                 const name = card.dataset.name;
                 const type = card.dataset.type;
 
-                // Handle Run
+                // RUN
                 if(type === 'run') {
                     const time = card.querySelector('.run-time').value;
                     const inc = card.querySelector('.run-incline').value;
                     if(time || inc) {
-                        txt += `- ${name}: ${time || '0'} mins @ ${inc || '0'}%\n`;
+                        txt += `- ${name}: ${time || '0'}m @ ${inc || '0'}%\n`;
                         found = true;
                     }
                 } 
-                // Handle Lift
-                else if (type === 'lift' || !type || type === 'strength') {
-                    // Check if input exists (it won't on mobility)
-                    const input = card.querySelector('.strength-weight');
-                    if(input && input.value.trim() !== '') {
-                        txt += `- ${name}: ${input.value}\n`;
+                // BODYWEIGHT
+                else if (type === 'bodyweight') {
+                     const val = card.querySelector('.bw-reps').value;
+                     if(val) {
+                         txt += `- ${name}: ${val} reps total\n`;
+                         found = true;
+                     }
+                }
+                // LIFT
+                else if (type === 'lift' || !type) {
+                    // Gather all set inputs
+                    const inputs = card.querySelectorAll('.lift-set');
+                    let setVals = [];
+                    inputs.forEach(inp => {
+                        if(inp.value) setVals.push(inp.value);
+                    });
+                    
+                    if(setVals.length > 0) {
+                        txt += `- ${name}: ${setVals.join(', ')} lbs\n`;
                         found = true;
                     }
                 }
-                // Mobility is ignored in logs unless you want to just say "Completed"
             });
 
             if(!found) txt += "Session Completed.";
@@ -557,7 +585,6 @@
                 html += `<div class="plate ${cls}">${p}</div>`;
             });
             document.getElementById('plate-graphic').innerHTML = html;
-
             document.getElementById('plate-modal').style.display = 'flex';
         }
 
