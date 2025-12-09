@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GymOS v3.2</title>
+    <title>GymOS v3.3 (Stable)</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,24 +77,23 @@
         /* Layout */
         .container { padding: 0 16px; }
 
-        /* Warmup Card */
+        /* Warmup Card - BIG TEXT FIX */
         .warmup-card {
             background: var(--card-bg); border: 1px solid var(--card-border);
             border-radius: 12px; padding: 20px; margin-bottom: 24px;
-            border-left: 4px solid var(--watch-blue); /* Visual pop */
+            border-left: 4px solid var(--watch-blue);
         }
         .warmup-label {
             font-family: var(--font-mono); color: var(--watch-blue);
             font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
             margin-bottom: 12px; display: block;
         }
-        /* REQUESTED TWEAK: Bigger Warmup Text */
         .warmup-item {
-            color: #fff; padding: 6px 0; 
-            font-size: 1.3rem; /* Increased size */
+            color: #fff; padding: 8px 0; 
+            font-size: 1.4rem; /* INCREASED SIZE */
             font-weight: 500;
             border-bottom: 1px solid #222;
-            line-height: 1.4;
+            line-height: 1.3;
         }
         .warmup-item:last-child { border-bottom: none; }
 
@@ -176,12 +175,14 @@
             border-radius: 4px;
         }
 
-        /* Log Input */
+        /* Input Areas */
         .log-area {
             margin-top: 12px; padding-top: 12px;
             border-top: 1px solid #222;
             display: flex; align-items: center; justify-content: flex-end; gap: 10px;
         }
+        
+        /* The standard Strength Input */
         .log-input {
             background: #000; border: 1px solid #333;
             color: #fff; padding: 8px; border-radius: 4px;
@@ -190,7 +191,7 @@
         }
         .log-input:focus { border-color: var(--accent); outline: none; }
 
-        /* Specific styles for Run Inputs */
+        /* Run Inputs */
         .run-input-group {
             display: flex; gap: 8px; width: 100%; justify-content: flex-end;
         }
@@ -300,33 +301,31 @@
         let wakeLock = null;
         let totalExercises = 0;
 
-        // --- DEMO DATA FOR DISPLAY PURPOSES ---
-        // If fetch fails, this loads so you can see the new Run Logic immediately
+        // --- DEMO DATA: SHOWS ALL 3 STATES (Lift, Run, Mobility) ---
         const DEMO_DATA = {
-            date: "TODAY'S SESSION",
-            title: "FULL BODY + RUN",
+            date: "DEMO MODE",
+            title: "GYMOS v3.3",
             warmup: {
-                description: "Complete 2 rounds:",
-                items: ["10 x Pass Throughs", "20 x Air Squats", "3 mins Light Jog"]
+                description: "Test Sequence:",
+                items: ["5 min Run", "20 Air Squats", "Shoulder Dislocates"]
             },
             blocks: [
                 {
-                    name: "Strength Block",
-                    rest_seconds: 90,
+                    name: "Strength",
                     exercises: [
-                        { name: "Barbell Squat", sets: "5", reps: "5", load: "225 lbs", type: "strength" },
-                        { name: "Bench Press", sets: "3", reps: "8", load: "185 lbs", type: "strength" }
+                        { name: "Barbell Squat", sets: 3, reps: 5, load: "225 lbs", type: "lift" }
                     ]
                 },
                 {
-                    name: "Cardio Finish",
-                    apple_watch: "Set to 'Indoor Run'",
+                    name: "Conditioning",
                     exercises: [
-                        { 
-                            name: "Treadmill Intervals", 
-                            type: "run", // <--- THE KEY: Type = Run triggers the new UI
-                            notes: "1 min hard / 1 min off x 10"
-                        }
+                        { name: "Interval Run", type: "run", notes: "Hard pace" }
+                    ]
+                },
+                {
+                    name: "Cooldown",
+                    exercises: [
+                        { name: "Child's Pose", type: "mobility", notes: "Hold for 2 mins" } // Should NOT show input
                     ]
                 }
             ]
@@ -344,8 +343,7 @@
                 const data = await res.json();
                 render(data);
             } catch (e) {
-                // FALLBACK TO DEMO DATA if no json file exists
-                console.log("Using Demo Data");
+                console.log("Using Demo Data due to fetch error.");
                 render(DEMO_DATA);
             }
         }
@@ -383,7 +381,6 @@
                 bHead.innerHTML = `<span class="block-title">${block.name}</span>${timerHtml}`;
                 container.appendChild(bHead);
 
-                // Watch Alert
                 if(block.apple_watch) {
                     const watchDiv = document.createElement('div');
                     watchDiv.className = 'watch-alert';
@@ -403,46 +400,58 @@
                     totalExercises++;
                     const exCard = document.createElement('div');
                     exCard.className = 'exercise-card';
-                    // We attach data-type so clipboard knows how to read it
-                    exCard.dataset.type = ex.type || 'strength';
+                    
+                    // Default to 'lift' if type is missing, for backward compatibility
+                    const type = (ex.type || 'lift').toLowerCase();
+                    
+                    exCard.dataset.type = type;
                     exCard.dataset.name = ex.name;
-
                     exCard.onclick = (e) => toggleComplete(exCard, e);
 
-                    // LOGIC: Check for RUN vs STRENGTH
+                    // --- INPUT LOGIC START ---
                     let inputHtml = '';
                     let loadPill = '';
 
-                    if(ex.type === 'run') {
-                        // --- RUN UI (Time & Incline) ---
-                        // No load pill for run
-                        loadPill = `<div class="load-pill" style="opacity:0">Run</div>`; // invisible placeholder to keep alignment
-                        inputHtml = `
-                            <div class="run-input-group">
-                                <div class="input-labeled">
-                                    <input type="text" class="log-input run-time" placeholder="Time" onclick="event.stopPropagation()">
-                                    <span class="unit-label">m:s</span>
-                                </div>
-                                <div class="input-labeled">
-                                    <input type="number" class="log-input run-incline" placeholder="Inc" step="0.5" onclick="event.stopPropagation()">
-                                    <span class="unit-label">%</span>
+                    // CASE 1: RUN (Time & Incline)
+                    if(type === 'run') {
+                         inputHtml = `
+                            <div style="margin-top:12px; border-top:1px solid #222; padding-top:12px;">
+                                <div class="run-input-group">
+                                    <div class="input-labeled">
+                                        <input type="text" class="log-input run-time" placeholder="Time" onclick="event.stopPropagation()">
+                                        <span class="unit-label">m:s</span>
+                                    </div>
+                                    <div class="input-labeled">
+                                        <input type="number" class="log-input run-incline" placeholder="Inc" step="0.5" onclick="event.stopPropagation()">
+                                        <span class="unit-label">%</span>
+                                    </div>
                                 </div>
                             </div>
                         `;
-                    } else {
-                        // --- STRENGTH UI (Weight) ---
+                    } 
+                    // CASE 2: MOBILITY / BODYWEIGHT (No Inputs)
+                    else if(type === 'mobility' || type === 'bodyweight') {
+                        // Ensure we have an empty pill to keep layout consistent if needed, or nothing.
+                        // We do NOT render the inputHtml block here.
+                        inputHtml = ''; 
+                    }
+                    // CASE 3: LIFT / STRENGTH (Default)
+                    else {
                         const loadString = ex.load || "-";
                         const isCalculable = /\d+/.test(loadString) && (loadString.includes('lb') || !isNaN(loadString));
                         const loadAttr = isCalculable ? `onclick="showPlateMath('${loadString}', event)"` : '';
                         
                         loadPill = `<div class="load-pill" ${loadAttr}>${loadString}</div>`;
+                        
+                        // The original v3.1 "Log Actual" field
                         inputHtml = `
-                             <div class="log-area">
+                            <div class="log-area">
                                 <span style="font-size:0.7rem; color:#444">LOG LOAD:</span>
                                 <input type="text" class="log-input strength-weight" placeholder="e.g. 280" onclick="event.stopPropagation()">
                             </div>
                         `;
                     }
+                    // --- INPUT LOGIC END ---
 
                     exCard.innerHTML = `
                         <div class="ex-top">
@@ -454,10 +463,7 @@
                             ${ex.reps ? 'x ' + ex.reps : ''}
                         </div>
                         ${ex.notes ? `<div class="ex-notes">${ex.notes}</div>` : ''}
-                        
-                        <div style="margin-top:12px; border-top:1px solid #222; padding-top:12px;">
-                            ${inputHtml}
-                        </div>
+                        ${inputHtml}
                     `;
                     container.appendChild(exCard);
                 });
@@ -476,11 +482,9 @@
             document.getElementById('progress-fill').style.width = `${pct}%`;
         }
 
-        // --- UPDATED CLIPBOARD LOGIC FOR RUNS ---
         function copyLogsToClipboard() {
             let txt = `Workout Log [${document.getElementById('date-display').innerText}]:\n`;
             
-            // We iterate over CARDS, not inputs, to handle different types
             const cards = document.querySelectorAll('.exercise-card');
             let found = false;
 
@@ -488,6 +492,7 @@
                 const name = card.dataset.name;
                 const type = card.dataset.type;
 
+                // Handle Run
                 if(type === 'run') {
                     const time = card.querySelector('.run-time').value;
                     const inc = card.querySelector('.run-incline').value;
@@ -495,17 +500,20 @@
                         txt += `- ${name}: ${time || '0'} mins @ ${inc || '0'}%\n`;
                         found = true;
                     }
-                } else {
-                    // Strength
-                    const val = card.querySelector('.strength-weight').value;
-                    if(val && val.trim() !== '') {
-                        txt += `- ${name}: ${val}\n`;
+                } 
+                // Handle Lift
+                else if (type === 'lift' || !type || type === 'strength') {
+                    // Check if input exists (it won't on mobility)
+                    const input = card.querySelector('.strength-weight');
+                    if(input && input.value.trim() !== '') {
+                        txt += `- ${name}: ${input.value}\n`;
                         found = true;
                     }
                 }
+                // Mobility is ignored in logs unless you want to just say "Completed"
             });
 
-            if(!found) txt += "Completed (No specific loads logged).";
+            if(!found) txt += "Session Completed.";
             
             navigator.clipboard.writeText(txt).then(() => {
                 const btn = document.getElementById('btn-publish');
@@ -515,7 +523,7 @@
             });
         }
 
-        // --- Plate Math & Timer Logic (Unchanged) ---
+        // --- PLATE MATH & UTILS ---
         function showPlateMath(loadStr, e) {
             e.stopPropagation();
             const match = loadStr.match(/(\d+)/);
@@ -581,7 +589,6 @@
         async function requestWakeLock() {
             try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); } catch (err) { console.log(err); }
         }
-
         function toggleWakeLock() { if(!wakeLock) requestWakeLock(); else alert("Screen Lock Active"); }
     </script>
 </body>
