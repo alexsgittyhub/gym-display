@@ -1,96 +1,70 @@
 {
   "date": "2025-12-08",
-  "title": "The Runder Survivor",
-  "notes": "Simulated test workout with warmup, run for time, and cooldown recovery.",
+  "title": "Operation Gravity Check",
+  "notes": "Test workout combining lift and bodyweight for schema validation.",
   "warmup": {
-    "description": "Start with treadmill run and dynamic movement.",
+    "description": "Treadmill and dynamic prep",
     "items": [
-      "5 min treadmill walk at moderate pace",
-      "3 rounds of dynamic stretches",
-      "3 rounds of mobility flow (legs, arms, hups)",
-      "30 second jogging ropes",
-      "30 second high knees and ankle drops"
+      "5 min treadmill jog @ 2% incline",
+      "Dynamic lunges",
+      "Arm circles",
+      "10 air squats"
     ]
   },
   "blocks": [
     {
-      "id": "A1",
-      "name": "Strength Block",
-      "type": "Strength",
+      "id": "A",
+      "name": "Strength",
       "rest_seconds": 90,
-      "instructions": "Full-body compound lift focus",
+      "instructions": "Focus on clean, controlled reps.",
       "exercises": [
         {
-          "name": "Back Squat",
+          "name": "Barbell Back Squat",
           "type": "lift",
-          "sets": 4,
-          "reps": 8,
-          "load": "185 lb",
+          "sets": 3,
+          "reps": 5,
+          "load": "185 lbs",
           "notes": null
         },
         {
           "name": "Bench Press",
           "type": "lift",
-          "sets": 4,
-          "reps": 8,
-          "load": "55 lb",
-          "notes": null
-        },
-        {
-          "name": "Pause Row",
-          "type": "lift",
           "sets": 3,
-          "reps": 8,
-          "load": "100 lb",
+          "reps": 5,
+          "load": "145 lbs",
           "notes": null
         }
       ]
     },
     {
-      "id": "B2",
-      "name": "1-Mile Run For Time",
-      "type": "run",
-      "instructions": "Run 1 mile on treadmill or outside at 1.0% incline. Record time.",
+      "id": "B",
+      "name": "Bodyweight",
+      "rest_seconds": 60,
+      "instructions": "Perform as a circuit, rest 60 sec between rounds.",
       "exercises": [
         {
-          "name": "Run 1 Mile",
-          "type": "run",
-          "sets": 1,
-          "reps": "Time",
+          "name": "Pull-Ups",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "max",
           "load": null,
-          "notes": "Record time in minutes and seconds."
-        }
-      ]
-    },
-    {
-      "id": "C3",
-      "name": "Cool down",
-      "type": "mobility",
-      "instructions": "Static and mobiliety recovery",
-      "exercises": [
-        {
-          "name": "Static Stretches",
-          "type": "mobility",
-          "sets": null,
-          "reps": "30-30",
-          "load": null,
-          "notes": "Along wall"
+          "notes": null
         },
         {
-          "name": "Child Poses",
-          "type": "mobility",
-          "sets": null,
-          "reps": "30-60",
+          "name": "Push-Ups",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": 15,
           "load": null,
-          "notes": "Static holds"
+          "notes": null
         },
         {
-          "name": "Light Walk",
-          "type": "mobility",
-          "sets": null,
-          "reps": "5 min",
+          "name": "Plank Hold",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "45 sec",
           "load": null,
-          "notes": "End of session cooldown"
+          "notes": null
         }
       ]
     }
