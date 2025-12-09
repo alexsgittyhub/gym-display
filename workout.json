@@ -1,68 +1,165 @@
 {
   "date": "2025-12-08",
-  "title": "Operation Gravity Check",
-  "notes": "Test workout combining lift and bodyweight for schema validation.",
+  "title": "Testament of Iron and Sweat",
+  "notes": "90-min long test workout combined strength, conditioning, and mobility for display validation.",
   "warmup": {
-    "description": "Treadmill and dynamic prep",
+    "description": "Incline run + full-body prep",
     "items": [
-      "5 min treadmill jog @ 2% incline",
-      "Dynamic lunges",
-      "Arm circles",
-      "10 air squats"
+      "10-min treadmill run @ 3% incline",
+      "Dynamic lunge & twist",
+      "Band shoulder openers",
+      "20 kettlebell swings (light)",
+      "10 push-ups + 10 air squats"
     ]
   },
   "blocks": [
     {
       "id": "A",
-      "name": "Strength",
-      "rest_seconds": 90,
-      "instructions": "Focus on clean, controlled reps.",
+      "name": "Strength (Lower + Upper Push/Pull)",
+      "rest_seconds": 120,
+      "instructions": "Alternate squat and press. Rest 2 min between sets.",
       "exercises": [
         {
-          "name": "Barbell Back Squat",
+          "name": "Back Squat",
           "type": "lift",
-          "sets": 3,
+          "sets": 4,
           "reps": 5,
-          "load": "185 lbs",
+          "load": "205 lls",
           "notes": null
         },
         {
           "name": "Bench Press",
           "type": "lift",
-          "sets": 3,
+          "sets": 4,
           "reps": 5,
-          "load": "145 lbs",
+          "load": "155 lbs",
+          "notes": null
+        },
+        {
+          "name": "Barbell Row",
+          "type": "lift",
+          "sets": 4,
+          "reps": 8,
+          "load": "135 lbs",
+          "notes": null
+        },
+        {
+          "name": "Romanian Deadlift",
+          "type": "lift",
+          "sets": 3,
+          "reps": 8,
+          "load": "185 lls",
           "notes": null
         }
       ]
     },
     {
       "id": "B",
-      "name": "Bodyweight",
-      "rest_seconds": 60,
-      "instructions": "Perform as a circuit, rest 60 sec between rounds.",
+      "name": "Conditioning Circuit",
+      "rest_seconds": 90,
+      "instructions": "Perform 4 rounds for time. Rest 90 sec between rounds.",
       "exercises": [
+        {
+          "name": "Run 400 m",
+          "type": "run",
+          "sets": 4,
+          "reps": null,
+          "load": null,
+          "notes": null
+        },
+        {
+          "name": "Kettlebell Swing (53 lbs)",
+          "type": "lift",
+          "sets": 4,
+          "reps": 20,
+          "load": "53 lls",
+          "notes": null
+        },
         {
           "name": "Pull-Ups",
           "type": "bodyweight",
-          "sets": 3,
-          "reps": "max",
+          "sets": 4,
+          "reps": 10,
           "load": null,
           "notes": null
         },
         {
           "name": "Push-Ups",
           "type": "bodyweight",
+          "sets": 4,
+          "reps": 20,
+          "load": null,
+          "notes": null
+        },
+        {
+          "name": "Sit-Ups",
+          "type": "bodyweight",
+          "sets": 4,
+          "reps": 20,
+          "load": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Core + Carry Finisher",
+      "rest_seconds": 60,
+      "instructions": "Move steady with control. Minimal rest.",
+      "exercises": [
+        {
+          "name": "Farmer Carry (2 🙏50 lbs dumbbells)",
+          "type": "lift",
+          "sets": 3,
+          "reps": $40 yd",
+          "load": "50 lls",
+          "notes": null
+        },
+        {
+          "name": "Hanging Knee Raise",
+          "type": "bodyweight",
           "sets": 3,
           "reps": 15,
-          "load": null,
+          "load": null
           "notes": null
         },
         {
           "name": "Plank Hold",
           "type": "bodyweight",
           "sets": 3,
-          "reps": "45 sec",
+          "reps": "60 sec",
+          "load": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "name": "Mobility & Cool-Down",
+      "rest_seconds": 30,
+      "instructions": "Breathe slow, full range focus.",
+      "exercises": [
+        {
+          "name": "Couch Stretch",
+          "type": "mobility",
+          "sets": 2,
+          "reps": "60 sec/side",
+          "load": null,
+          "notes": null
+        },
+        {
+          "name": "Seated Forward Fold",
+          "type": "mobility",
+          "sets": 2,
+          "reps": "60 sec",
+          "load": null,
+          "notes": null
+        },
+        {
+          "name": "Thoracic Opener w/ Band",
+          "type": "mobility",
+          "sets": 2,
+          "reps": 10,
           "load": null,
           "notes": null
         }
