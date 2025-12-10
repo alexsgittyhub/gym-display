@@ -1,7 +1,7 @@
 {
   "date": "2025-12-09",
-  "title": "Operation Uppercut",
-  "notes": "ACFT prep - Upper body strength, push-up endurance, and 2-mile asessment integration.",
+  "title": "Operation Uppercut (AFT Edition)",
+  "notes": "AFT prep - Upper body strength and endurance, focused on the new Army Fitness Test.",
   "warmup": {
     "description": "1 mile run at steady pace (input time), followed by dynamic mobility.",
     "items": [
@@ -22,4 +22,90 @@
           "type": "lift",
           "sets": 3,
           "reps": 5,
-          "load": "155-185 lbs
+          "load": "155-185 lbs",
+          "last_best": null,
+          "notes": null
+        },
+        {
+          "name": "Pull-Ups",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "max",
+          "load": null,
+          "last_best": null,
+          "notes": null
+        },
+        {
+          "name": "Barbell Bent-Over Row",
+          "type": "lift",
+          "sets": 3,
+          "reps": 8,
+          "load": "115-135 lbs",
+          "last_best": null,
+          "notes": null
+        },
+        {
+          "name": "Dumbbell Arnold Press",
+          "type": "lift",
+          "sets": 3,
+          "reps": 10,
+          "load": "35-40 lbs",
+          "last_best": null,
+          "notes": null
+        },
+        {
+          "name": "Plank Shoulder Taps",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "20",
+          "load": null,
+          "last_best": null,
+          "notes": null
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "name": "Push-Up Density Test",
+      "rest_seconds": 0,
+      "instructions": "Hand-Release Push-Up EMOM 60m - perfect form.",
+      "exercises": [
+        {
+          "name": "Hand-Release Push-Ups",
+          "type": "bodyweight",
+          "sets": 6,
+          "reps": "minite-based",
+          "load": null,
+          "last_best": null,
+          "notes": "Min 1: 10 reps, Min 2: 12 reps, Min 3: 14 reps, Min 4: 12 reps, Min 5: 10 reps, Min 6: Max reps"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Static Grip + Core Combo",
+      "rest_seconds": 30,
+      "instructions": "Grip endurance and core alinment for the AFT.",
+      "exercises": [
+        {
+          "name": "Dead Hang Hold",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "max time",
+          "load": null,
+          "last_best": null,
+          "notes": "Aim 30-45s every set"
+        },
+        {
+          "name": "Hollow Body Hold",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "30s",
+          "load": null,
+          "last_best": null,
+          "notes": "1 inch flat, arms extended, low back intact"
+        }
+      ]
+    }
+  ]
+}
