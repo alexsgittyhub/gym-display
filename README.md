@@ -1,5 +1,7 @@
 # 🏋️ GymOS v3.5
 
+### [🔴 CLICK TO VIEW LIVE WORKOUT](https://alexsgittyhub.github.io/gym-display/)
+
 **GymOS** is a "headless" workout display system powered by a custom OpenAI GPT. It serves as a dashboard for my home gym, displaying daily programming, calculating plate math, and tracking intra-set performance data.
 
 > **Concept:** The AI acts as the coach (planning, logic, progression), GitHub acts as the database, and this web app acts as the dumb terminal.
