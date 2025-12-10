@@ -22,7 +22,7 @@
           "type": "lift",
           "sets": 4,
           "reps": 8,
-          "load": "210 lls",
+          "load": "210 lbs",
           "last_best": "PR: 205 lbs",
           "notes": null
         },
@@ -85,10 +85,7 @@
       "id": "C",
       "name": "Conditioning Run + Carry",
       "rest_seconds": 90,
-      "instructions": "Combine run and carries:
-
-1-mile incline run + farmer carry",
- 2-mile run + bear crawl, 3-mile cooldown run as fast finish.",
+      "instructions": "Combine run and carries: 1-mile incline run + farmer carry, 2-mile run + bear crawl, 3-mile cooldown run as fast finish.",
       "exercises": [
         {
           "name": "Three-Step Run",
@@ -97,21 +94,21 @@
           "reps": null,
           "load": null,
           "last_best": null,
-          "notes": "1 mile incline, 2 mail cooldown, make the last one faster"
+          "notes": "1 mile incline, 2 mile cooldown, make the last one faster"
         },
         {
           "name": "Farmer Carry",
           "type": "lift",
           "sets": 3,
           "reps": "100 ft walk",
-          "load": "40 lls",
+          "load": "40 lbs",
           "last_best": "PR: 40 lbs",
           "notes": null
         }
       ]
     },
     {
-      "id": "D,",
+      "id": "D",
       "name": "Core and Cool-Down",
       "rest_seconds": 40,
       "instructions": "Lower intensity, flexibility, and mobility.",
