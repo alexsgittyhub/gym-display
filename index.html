@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GymOS v3.4</title>
+    <title>GymOS v3.5</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,8 @@
             --text-secondary: #888888;
             --accent: #D4FF00; /* Acid Green */
             --accent-dim: rgba(212, 255, 0, 0.15);
-            --watch-blue: #5ac8fa; /* Apple Watch Blue */
+            --gold: #FFD700; /* PR Gold */
+            --watch-blue: #5ac8fa; 
             --watch-bg: rgba(90, 200, 250, 0.1);
             --danger: #FF2E2E;
             
@@ -149,9 +150,23 @@
 
         .ex-top { display: flex; justify-content: space-between; align-items: flex-start; }
         
+        .ex-name-group { width: 65%; }
         .ex-name {
             font-size: 1.3rem; font-weight: 700; margin-bottom: 4px;
-            line-height: 1.2; width: 65%;
+            line-height: 1.2; display: block;
+        }
+        
+        /* NEW: PR Badge Style */
+        .pr-badge {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--gold);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.05);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-top: 4px;
         }
 
         .load-pill {
@@ -175,24 +190,23 @@
             border-radius: 4px;
         }
 
-        /* --- NEW INPUT STYLES --- */
+        /* --- INPUT STYLES --- */
         .input-container {
             margin-top: 12px; 
             border-top: 1px solid #222; 
             padding-top: 12px;
         }
 
-        /* Lift Set Grid */
         .set-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            justify-content: flex-start; /* Left align for multiple rows */
+            justify-content: flex-start; 
         }
         
         .set-input-wrapper {
             position: relative;
-            flex: 0 0 calc(33.33% - 6px); /* 3 across on mobile */
+            flex: 0 0 calc(33.33% - 6px);
         }
 
         .log-input {
@@ -204,7 +218,6 @@
         .log-input:focus { border-color: var(--accent); outline: none; }
         .log-input::placeholder { color: #444; font-size: 0.8rem; }
 
-        /* Run Inputs */
         .run-input-group {
             display: flex; gap: 8px; width: 100%; justify-content: flex-end;
         }
@@ -317,21 +330,20 @@
         // --- DEMO DATA ---
         const DEMO_DATA = {
             date: "DEMO MODE",
-            title: "GYMOS v3.4",
+            title: "GYMOS v3.5",
             warmup: { description: "Test:", items: ["5 min Run", "20 Air Squats"] },
             blocks: [
                 {
                     name: "Strength Block",
                     exercises: [
-                        { name: "Barbell Squat", sets: 3, reps: 5, load: "225 lbs", type: "lift" },
-                        { name: "Bench Press", sets: 4, reps: 8, load: "185 lbs", type: "lift" }
+                        { name: "Barbell Squat", sets: 3, reps: 5, load: "225 lbs", last_best: "315 lbs", type: "lift" },
+                        { name: "Bench Press", sets: 3, reps: 8, load: "185 lbs", type: "lift" }
                     ]
                 },
                 {
                     name: "Metcon",
                     exercises: [
-                        { name: "Pushups", sets: 4, reps: "Max", type: "bodyweight" },
-                        { name: "Run", type: "run", notes: "Sprint" }
+                        { name: "Run", type: "run", last_best: "12:30 @ 2%", notes: "Sprint" }
                     ]
                 }
             ]
@@ -428,7 +440,7 @@
                                 </div>
                             </div>`;
                     } 
-                    // 2. BODYWEIGHT (Total Reps)
+                    // 2. BODYWEIGHT
                     else if(type === 'bodyweight') {
                          inputHtml = `
                             <div class="input-container">
@@ -438,18 +450,17 @@
                                 </div>
                             </div>`;
                     }
-                    // 3. MOBILITY (No Inputs)
+                    // 3. MOBILITY
                     else if(type === 'mobility') {
                         inputHtml = ''; 
                     }
-                    // 4. LIFT (Per-Set Inputs)
+                    // 4. LIFT
                     else {
                         const loadString = ex.load || "-";
                         const isCalculable = /\d+/.test(loadString) && (loadString.includes('lb') || !isNaN(loadString));
                         const loadAttr = isCalculable ? `onclick="showPlateMath('${loadString}', event)"` : '';
                         loadPill = `<div class="load-pill" ${loadAttr}>${loadString}</div>`;
                         
-                        // Loop to create input boxes based on "sets" integer
                         const setsCount = parseInt(ex.sets) || 1;
                         let gridHtml = '';
                         for(let i=1; i <= setsCount; i++) {
@@ -469,9 +480,15 @@
                         `;
                     }
 
+                    // --- PR BADGE LOGIC ---
+                    const prHtml = ex.last_best ? `<div class="pr-badge">🏆 Best: ${ex.last_best}</div>` : '';
+
                     exCard.innerHTML = `
                         <div class="ex-top">
-                            <div class="ex-name">${ex.name}</div>
+                            <div class="ex-name-group">
+                                <span class="ex-name">${ex.name}</span>
+                                ${prHtml}
+                            </div>
                             ${loadPill}
                         </div>
                         <div class="ex-details">
@@ -508,7 +525,6 @@
                 const name = card.dataset.name;
                 const type = card.dataset.type;
 
-                // RUN
                 if(type === 'run') {
                     const time = card.querySelector('.run-time').value;
                     const inc = card.querySelector('.run-incline').value;
@@ -517,7 +533,6 @@
                         found = true;
                     }
                 } 
-                // BODYWEIGHT
                 else if (type === 'bodyweight') {
                      const val = card.querySelector('.bw-reps').value;
                      if(val) {
@@ -525,9 +540,7 @@
                          found = true;
                      }
                 }
-                // LIFT
                 else if (type === 'lift' || !type) {
-                    // Gather all set inputs
                     const inputs = card.querySelectorAll('.lift-set');
                     let setVals = [];
                     inputs.forEach(inp => {
