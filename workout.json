@@ -1,146 +1,25 @@
 {
   "date": "2025-12-09",
-  "title": "Operation Iron Buffet",
-  "notes": "90-minute full-spectrum session mixing barbell, kibs, conditioning, and mobility.",
+  "title": "Operation Uppercut",
+  "notes": "ACFT prep - Upper body strength, push-up endurance, and 2-mile asessment integration.",
   "warmup": {
-    "description": "5-10 min incline treadmill warmup + dynamic stretch",
+    "description": "1 mile run at steady pace (input time), followed by dynamic mobility.",
     "items": [
-      "5-10 min run @ 2% incline",
-      "Dynamic legs swings & pumps",
-      "3 min band mobility flow"
+      "Run: 1 mile - steady pace, record time",
+      "Shoulder circles, band pull-aparts, inchworms",
+      "10 push-ups + 10 air squats + 10 mountain climbers - 2 rounds"
     ]
   },
   "blocks": [
     {
       "id": "A",
-      "name": "Strength Foundation",
-      "rest_seconds": 120,
-      "instructions": "Base lifts focused on fundamental strength.",
+      "name": "Strength Circuit",
+      "rest_seconds": 60,
+      "instructions": "3 rounds - move efficiently, rest 60s between rounds.",
       "exercises": [
-        {
-          "name": "Back Squat",
-          "type": "lift",
-          "sets": 4,
-          "reps": 8,
-          "load": "210 lbs",
-          "last_best": "PR: 205 lbs",
-          "notes": null
-        },
         {
           "name": "Bench Press",
           "type": "lift",
-          "sets": 4,
-          "reps": 8,
-          "load": "47 lbs@arm",
-          "last_best": "PR: 45 lbs",
-          "notes": null
-        },
-        {
-          "name": "Barbell Row",
-          "type": "lift",
-          "sets": 4,
-          "reps": 8,
-          "load": "55 lbs",
-          "last_best": "PR: 50 lbs",
-          "notes": null
-        }
-      ]
-    },
-    {
-      "id": "B",
-      "name": "Metcon Mas",
-      "rest_seconds": 60,
-      "instructions": "Rotating through strength and endurance.",
-      "exercises": [
-        {
-          "name": "Kettlebell Swings",
-          "type": "lift",
-          "sets": 4,
-          "reps": 20,
-          "load": "45 lbs",
-          "last_best": null,
-          "notes": null
-        },
-        {
-          "name": "Push-Ups",
-          "type": "bodyweight",
-          "sets": 4,
-          "reps": 20,
-          "load": null,
-          "last_best": null,
-          "notes": null
-        },
-        {
-          "name": "Surge Rows",
-          "type": "bodyweight",
-          "sets": 4,
-          "reps": 8,
-          "load": null,
-          "last_best": null,
-          "notes": null
-        }
-      ]
-    },
-    {
-      "id": "C",
-      "name": "Conditioning Run + Carry",
-      "rest_seconds": 90,
-      "instructions": "Combine run and carries: 1-mile incline run + farmer carry, 2-mile run + bear crawl, 3-mile cooldown run as fast finish.",
-      "exercises": [
-        {
-          "name": "Three-Step Run",
-          "type": "run",
           "sets": 3,
-          "reps": null,
-          "load": null,
-          "last_best": null,
-          "notes": "1 mile incline, 2 mile cooldown, make the last one faster"
-        },
-        {
-          "name": "Farmer Carry",
-          "type": "lift",
-          "sets": 3,
-          "reps": "100 ft walk",
-          "load": "40 lbs",
-          "last_best": "PR: 40 lbs",
-          "notes": null
-        }
-      ]
-    },
-    {
-      "id": "D",
-      "name": "Core and Cool-Down",
-      "rest_seconds": 40,
-      "instructions": "Lower intensity, flexibility, and mobility.",
-      "exercises": [
-        {
-          "name": "Plank Hold",
-          "type": "bodyweight",
-          "sets": 3,
-          "reps": "60 sec",
-          "load": null,
-          "last_best": "PR: 210 sec",
-          "notes": null
-        },
-        {
-          "name": "Couch Stretch",
-          "type": "mobility",
-          "sets": 2,
-          "reps": "10 per arm",
-          "load": null,
-          "last_best": null,
-          "notes": null
-        },
-        {
-          "name": "Seated Forward Fold",
-          "type": "mobility",
-          "sets": 2,
-          "reps": "60 sec",
-          "load": null,
-          "last_best": null,
-          "notes": null
-        }
-      ]
-    }
-  ]
-}
+          "reps": 5,
+          "load": "155-185 lbs
