@@ -1,19 +1,18 @@
 {
   "updated": "2025-12-13",
   "records": {
-    "deadlift": 235,
-    "dumbbell_bench_press": 45,
-    "pull_ups": 22,
-    "hanging_knee_raises": 14,
-    "barbell_row": 50,
-    "farmer_carry_dumbbells": 40,
-    "sit_ups": 20,
+    "deadlift": 220,
+    "dumbbell_bench_press": 50,
+    "pull_ups": 19,
+    "farmer_carry_dumbbells": 150,
     "plank_seconds": 60,
     "plank_max_seconds": 210,
-    "kettlebell_swings": null,
+    "treadmill_run": "5:45@ 1%",
+    "sit_ups": 20,
+    "hanging_knee_raises": 14,
+    "barbell_row": 50,
     "goblet_squat": null,
     "push_ups": null,
-    "dumbbell_snatch": null,
-    "treadmill_run": null
+    "dumbbell_snatch": null
   }
 }
