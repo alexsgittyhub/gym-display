@@ -1,1 +1,50 @@
-{"date":"2025-12-13","title":"Operation Witch Helen","notes":"Classic Helen return to test publishing. Scaleed with equipment on hand.","warmup":{"description":"5 min treadmill warmup + dynamic stretch","Items":["1 Mile run","Dynamic openers and arm circles"]},"blocks":[{"id":"A1","name":"Helen","rest_seconds":60,"instructions":"Three rounds for time: 3\nRound of : \nA 1 Mile Run\nB 45 KB Swings (50 LB bell)\nC 12 Pull-Ups","apple_watch":"Conditioning: Volume & time","exercises":[{"name":"Run","type":"run","sets":3,"reps":"200 m","load":null,"last_best":"5:00","notes":"For each round: 1 Mile run"},{"name":"kettlebell swings","type":"lift","sets":3,"reps":"21","load":"45 LB","last_best":"45 Lbs","notes":"Garage: 50 Lb KB"},{"name":"pull-ups","type":"bodyweight","sets":3,"reps":"12","load":null,"last_best":"35","notes":"As scaled"}]}]}
+{
+  "date": "2025-12-13",
+  "title": "Operation Witch Helen",
+  "notes": "Classic Helen return. Scaled with equipment on hand.",
+  "warmup": {
+    "description": "5 min treadmill warmup + dynamic stretch",
+    "items": [
+      "Run 800m easy",
+      "Dynamic openers and arm circles"
+    ]
+  },
+  "blocks": [
+    {
+      "id": "A1",
+      "name": "Helen",
+      "rest_seconds": 0,
+      "instructions": "3 Rounds For Time: 400m Run, 21 KB Swings, 12 Pull-ups.",
+      "apple_watch": "Conditioning: High HR",
+      "exercises": [
+        {
+          "name": "Run",
+          "type": "run",
+          "sets": 3,
+          "reps": "400 m",
+          "load": null,
+          "last_best": "5:00",
+          "notes": "Treadmill or Outside"
+        },
+        {
+          "name": "Kettlebell Swings",
+          "type": "lift",
+          "sets": 3,
+          "reps": "21",
+          "load": "45 lbs",
+          "last_best": "45 Lbs",
+          "notes": "American or Russian"
+        },
+        {
+          "name": "Pull-Ups",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "12",
+          "load": null,
+          "last_best": "35",
+          "notes": "Kipping allowed"
+        }
+      ]
+    }
+  ]
+}
