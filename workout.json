@@ -1,1 +1,95 @@
-{"date":"2025-12-13","title":"Operation Back from the Dead","notes":"Full-body reactivation day: Heavy Deadlift, Upper Strength, and Conditioning reset.","warmup":{"description":"Run + dynamic prep - not logged.","items":["Treadmill run 5 min easy, 2 min incline walk @10%","Dynamic: Leg Swings, Arm Circles, Hip Openers, Inchworms (2 rounds)"]},"blocks":[{"id":"A1","name":"Heavy Deadlift","rest_seconds":120,"instructions":"Reset stance every rep, full lockout each time.","apple_watch":"Bearlift: Heavy","exercises":[{"name":"Deadlift","type":"lift","sets":5,"reps":3,"load":"205 lb","capacity":"3RM","last_best":"235 lbs","notes":"Load: 45, 25, 10"}]},{"id":"A2","name":"Push/Pull Superset","body_rack_conflict":"No","rest_seconds":60,"instructions":"Perform A then B, rest, repeat.","apple_watch":"Strength: Upper body","exercises":[{"name":"Dumbbell Bench Press","type":"lift","sets":4,"reps":"10","load":"50 lb DB","last_best":null,"notes":"No rack conflict"},{"name":"Pull-Ups","type":"bodyweight","sets":4,"reps":"Max","load":null,"last_best":"22","notes":"Aim 8-10"}]},{"id":"A2","name":"Conditioning Finisher","body_rack_conflict":"No","rest_seconds":30,"instructions":"3 rounds for quality; hold consistent pace.","apple_watch":"Cardio","exercises":[{"name":"Treadmill Run","type":"run","sets":3,"reps":"0.25 mi","capacity":"Fast Pace","load":null,"last_best":null,"notes":""},{"name":"Kettlebell Farmer Carry","type":"bodyweight","sets":3,"reps":"50m","load":"45 lb/Hand","last_best":"40","notes":""},{"name":"Box Step-Overs","type":"bodyweight","sets":3,"reps":10,"load":null,"last_best":null,"notes":"24 box – step, not jump"}]}]}]}
+{
+  "date": "2025-12-13",
+  "title": "Operation Back from the Dead",
+  "notes": "Full-body reactivation day: Heavy Deadlift, Upper Strength, and Conditioning reset.",
+  "warmup": {
+    "description": "Run + dynamic prep - not logged.",
+    "items": [
+      "Treadmill run 5 min easy, 2 min incline walk @10%",
+      "Dynamic: Leg Swings, Arm Circles, Hip Openers, Inchworms (2 rounds)"
+    ]
+  },
+  "blocks": [
+    {
+      "id": "A1",
+      "name": "Heavy Deadlift",
+      "rest_seconds": 120,
+      "instructions": "Reset stance every rep, full lockout each time.",
+      "apple_watch": "Bearlift: Heavy",
+      "exercises": [
+        {
+          "name": "Deadlift",
+          "type": "lift",
+          "sets": 5,
+          "reps": 3,
+          "load": "205 lb",
+          "last_best": "235 lbs",
+          "notes": "Load: 45, 25, 10"
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "name": "Push/Pull Superset",
+      "rest_seconds": 60,
+      "instructions": "Perform A then B, rest, repeat.",
+      "apple_watch": "Strength: Upper body",
+      "exercises": [
+        {
+          "name": "Dumbbell Bench Press",
+          "type": "lift",
+          "sets": 4,
+          "reps": "10",
+          "load": "50 lb DB",
+          "last_best": null,
+          "notes": "No rack conflict"
+        },
+        {
+          "name": "Pull-Ups",
+          "type": "bodyweight",
+          "sets": 4,
+          "reps": "Max",
+          "load": null,
+          "last_best": "22",
+          "notes": "Aim 8-10"
+        }
+      ]
+    },
+    {
+      "id": "A3",
+      "name": "Conditioning Finisher",
+      "rest_seconds": 30,
+      "instructions": "3 rounds for quality; hold consistent pace.",
+      "apple_watch": "Cardio",
+      "exercises": [
+        {
+          "name": "Treadmill Run",
+          "type": "run",
+          "sets": 3,
+          "reps": "0.25 mi",
+          "load": null,
+          "last_best": null,
+          "notes": "Fast Pace"
+        },
+        {
+          "name": "Kettlebell Farmer Carry",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "50m",
+          "load": "45 lb/Hand",
+          "last_best": "40",
+          "notes": ""
+        },
+        {
+          "name": "Box Step-Overs",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": 10,
+          "load": null,
+          "last_best": null,
+          "notes": "24 inch box"
+        }
+      ]
+    }
+  ]
+}
