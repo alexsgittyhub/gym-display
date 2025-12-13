@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>GymOS v3.51</title>
+    <title>GymOS v3.52</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -272,8 +272,8 @@
             display: flex; justify-content: center; align-items: center; font-size: 0.7rem; color: #000; writing-mode: vertical-rl;
         }
         .p-45 { background: #0044ff; height: 100px; width: 25px; } 
-        .p-35 { background: #ffcc00; height: 90px; }
         .p-25 { background: #00cc44; height: 80px; }
+        .p-15 { background: #ff6600; height: 70px; } /* 15lb Orange */
         .p-10 { background: #eee; height: 60px; }
         .p-5 { background: #eee; height: 40px; }
         .p-2_5 { background: #555; height: 30px; }
@@ -461,6 +461,7 @@
                         const loadAttr = isCalculable ? `onclick="showPlateMath('${loadString}', event)"` : '';
                         loadPill = `<div class="load-pill" ${loadAttr}>${loadString}</div>`;
                         
+                        // FIX: setsCount is calculated correctly here, handling AMRAPs
                         const setsCount = parseInt(ex.sets) || 1;
                         let gridHtml = '';
                         for(let i=1; i <= setsCount; i++) {
@@ -573,7 +574,8 @@
             if(weight < 45) return; 
 
             const target = (weight - 45) / 2;
-            const plates = [45, 35, 25, 10, 5, 2.5];
+            // CORRECTED INVENTORY FOR HOME GYM (45, 25, 15, 10, 5, 2.5)
+            const plates = [45, 25, 15, 10, 5, 2.5];
             let remaining = target;
             let result = [];
             
