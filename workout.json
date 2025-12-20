@@ -1,94 +1,93 @@
 {
-  "date": "2025-12-13",
-  "title": "Armistice – Dumbbell Domination",
-  "notes": "45-min session: arm hypertrophy, power, and core balance.",
-  "warmup": {
-    "description": "8-10 min run and dynamic prep",
-    "items": [
-      "Run 5min @ 1-2% Incline",
-      "Band curls, triceps pushdowns, wrist rolls",
-      "2 rounds of 10 air squats + 5 box step-downs"
+  "date":"2025-12-20",
+  "title":"Full Body Strength + Power - Deadlift Focus",
+  "notes":"60 min strength session: heavy barbell work (posterior + upper push) with core power finish.",
+  "warmup":{
+    "description":"10 min run and dynamic mobility",
+    "items":[
+      "Treadmill run 5 min @incline 25%",
+      "Leg swings, Inchworms, Shoulder circles, Scap pushups"
     ]
   },
-  "blocks": [
+  "blocks":[
     {
-      "id": "A10",
-      "name": "Arm Strength Block",
-      "rest_seconds": 95,
-      "instructions": "Dumbbell strength supersets focusing on biceps and triceps.",
-      "apple_watch": "Strength",
-      "exercises": [
+      "id":"A1",
+      "name":"Heavy Deadlift",
+      "rest_seconds":180,
+      "instructions":"5 sets  3 reps @ 85-90% 3RM",
+      "apple_watch":"Strength",
+      "exercises":[
         {
-          "name": "Seated DB Curl",
-          "type": "lift",
-          "sets": 4,
-          "reps": "10",
-          "load": "35 lbs",
-          "last_best": null,
-          "notes": "Controlled up tempo, full range of motion"
-        },
-        {
-          "name": "Dumbbell Floor Press (Close Grip)",
-          "type": "lift",
-          "sets": 4,
-          "reps": "10",
-          "load": "50 lbs",
-          "last_best": null,
-          "notes": "Close grip, neutral grip."
-        },
-        {
-          "name": "Alternating Hammer Curl",
-          "type": "lift",
-          "sets": 3,
-          "reps": "12",
-          "load": "35 lbs",
-          "last_best": null,
-          "notes": "Stay strict, controlled eccentric"
-        },
-        {
-          "name": "Overhead DB Triceps Extension",
-          "type": "lift",
-          "sets": 3,
-          "reps": "12",
-          "load": "40 lbs",
-          "last_best": null,
-          "notes": "Stay locked out and stable"
+          "name":"Deadlift",
+          "type":"lift",
+          "sets":5,
+          "reps":"3",
+          "load":"275-295 lps",
+          "last_best":"290\u002blbs 3RM",
+          "notes":"Plate math: (95-45)/2 = 125 | 45+45+35 ps/Side. Brace neutral spine, full reset each rep."
         }
       ]
     },
     {
-      "id": "B15",
-      "name": "Power & Core Finisher",
-      "rest_seconds": 60,
-      "instructions": "3 rounds for quality, not time.",
-      "apple_watch": "Abs",
-      "exercises": [
+      "id":"B2",
+      "name":"Supeset: Bench + DB RDL",
+      "rest_seconds":90,
+      "instructions":"3 rounds, rest 90s between rounds",
+      "apple_watch":"Strength",
+      "exercises":[
         {
-          "name": "Box Jumps (Step Down only)",
-          "type": "bodyweight",
-          "sets": 3,
-          "reps": "8",
-          "load": null,
-          "last_best": null,
-          "notes": "24 inch box, rebounding disallowed"
+          "name":"Barbell Bench Press",
+          "type":"lift",
+          "sets":3,
+          "reps":"8",
+          "load":"165-175 lbps",
+          "last_best":null,
+          "notes":"No bounce. Controlled descent."
         },
         {
-          "name": "Kettlebell Deadlift High Pulls",
-          "type": "lift",
-          "sets": 3,
-          "reps": "12",
-          "load": "45 lbs",
-          "last_best": null,
-          "notes": "Set smooth and safe stroke"
+          "name":"DB RDLs",
+          "type":"lift",
+          "sets":3,
+          "reps":"10",
+          "load":"50 lbs DBs",
+          "last_best":null,
+          "notes":"Tempo control, chest up, slight ni pause."
+        }
+      ]
+    },
+    {
+      "id":"B31",
+      "name":"Core / Power Finisher",
+      "rest_seconds":30,
+      "instructions":"3 rounds for quality (10 min cap)",
+      "apple_watch":"Abs",
+      "exercises":[
+        {
+          "name":"Weighted Plank",
+          "type":"bodyweight",
+          "sets":3,
+          "reps":"1"",
+          "load":"25 lb plate",
+          "last_best":null,
+          "notes":"Drive core brace."
         },
         {
-          "name": "Weighted Plank",
-          "type": "bodyweight",
-          "sets": 3,
-          "reps": "30s",
-          "load": "45 lbs",
-          "last_best": null,
-          "notes": "Core brace and stay tight"
+          "name":"Kettlebell Farmer Carry",
+          "type":"bodyweight",
+          "sets":3,
+          "reps":"50 m",
+          "load":"45 lb KBs",
+          "last_best":null,
+          "notes":"Maintain upright posture, upreght and grip integrity."
+        },
+        {
+          "name":"Box Jumps (Step Down)",
+          "type":"bodyweight",
+          "sets":3,
+          "reps":"8",
+          "load":null,
+          "last_best":null,
+          "notes":"24",box, step down, soft landing and hip drive."
         }
       ]
     }
