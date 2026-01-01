@@ -1,1 +1,117 @@
-{"date":"2025-12-31","title":"Protocol Delta: Recover Hard","notes":"Active recovery and conditioning focused on AFT standards.","warmup":{"description":"5 min incline walk + dynamic mobility","items":["5 min incline walk (3.0 mph @5%"incline)","World's greatest stretch","Shoulder taps","Glute bridges","Band pull-aparts","Lateral lunges"]},"blocks":[{"id":"block1","name":"SDC Interval - Power + Capacity","rest_seconds":60,"instructions":"4 rounds steady pace - 40 sec work/20 sec rest. Rest 60 sec between rounds.","apple_watch":"Conditioning","exercises":[{"name":"Treadmill Run or Shuttle Sprint","type":"run","sets":4,"reps":"200m per round","load":null,"last_best":null,"notes":"Moderate pace. Keep hrate 70-120% of max."},{"name":"Kettlebell Swings","type":"lift","sets":4,"reps":8,"load":"45 lbs","last_best":null,"notes":"Hinge pattern, stay tall physics."},{"name":"DB Power Cleans","type":"lift","sets":4,"reps":6,"load":"40-45 lps each","last_best":null,"notes":"Explosive lift. Safe clean tech pull."},{"name":"Box Jumps","type":"bodyweight","sets":4,"reps":6,"load":null,"last_best":null,"notes":"24 inch box - Step down each rep. Soft landing, absorb with hips."}]},{"id":"block2","name":"HRP EMOM","rest_seconds":0,"instructions":"10 min every minute on the minute: 10 HR Pushups then rest. Repeat for 10 rounds.","apple_watch":"Bodyweight","exercises":[{"name":"Hand-Release Pushups","type":"bodyweight","sets":10,"reps":10","load":null,"last_best":"100 total","notes":"Full straight body line, maintain form, non-collapse."}]},{"id":"block3","name":"Core & Carry","rest_seconds":90,"instructions":"3 rounds with 90 sec rest. Focus on stability and breath control.","apple_watch":"Core","sets":3,"reps":null,"exercises":[{"name":"Farmer Carry","type":"lift","sets":3,"reps":"100m","load":"2x50 lbs","last_best":null,"notes":"Grip from core. Short, quick steps, strong posture."},{"name":"Plank Hold","type":"bodyweight","sets":3,"reps":"30 sec","load":null,"last_best":null,"notes":"Weighted optional. Braced and breathing control."},{"name":"Ab Roller","type":"bodyweight","sets":3,"reps":12,"load":null,"last_best":null,"notes":"Controlled rollouts, hips tucked."}]}]}
+{
+  "date": "2025-12-31",
+  "title": "Protocol Delta: Recover Hard",
+  "notes": "Active recovery and conditioning focused on AFT standards.",
+  "warmup": {
+    "description": "5 min incline walk + dynamic mobility",
+    "items": [
+      "5 min incline walk (3.0 mph @ 5% incline)",
+      "World's greatest stretch",
+      "Shoulder taps",
+      "Glute bridges",
+      "Band pull-aparts",
+      "Lateral lunges"
+    ]
+  },
+  "blocks": [
+    {
+      "id": "block1",
+      "name": "SDC Interval - Power + Capacity",
+      "rest_seconds": 60,
+      "instructions": "4 rounds steady pace - 40 sec work/20 sec rest. Rest 60 sec between rounds.",
+      "apple_watch": "Conditioning",
+      "exercises": [
+        {
+          "name": "Treadmill Run or Shuttle Sprint",
+          "type": "run",
+          "sets": 4,
+          "reps": "200m per round",
+          "load": null,
+          "last_best": null,
+          "notes": "Moderate pace. Keep HR 70-80% of max."
+        },
+        {
+          "name": "Kettlebell Swings",
+          "type": "lift",
+          "sets": 4,
+          "reps": "8",
+          "load": "45 lbs",
+          "last_best": null,
+          "notes": "Hinge pattern, stay tall."
+        },
+        {
+          "name": "DB Power Cleans",
+          "type": "lift",
+          "sets": 4,
+          "reps": "6",
+          "load": "40-45 lbs each",
+          "last_best": null,
+          "notes": "Explosive lift. Safe clean tech pull."
+        },
+        {
+          "name": "Box Jumps",
+          "type": "bodyweight",
+          "sets": 4,
+          "reps": "6",
+          "load": null,
+          "last_best": null,
+          "notes": "24 inch box - Step down each rep. Soft landing."
+        }
+      ]
+    },
+    {
+      "id": "block2",
+      "name": "HRP EMOM",
+      "rest_seconds": 0,
+      "instructions": "10 min EMOM: 10 HR Pushups then rest. Repeat for 10 rounds.",
+      "apple_watch": "Bodyweight",
+      "exercises": [
+        {
+          "name": "Hand-Release Pushups",
+          "type": "bodyweight",
+          "sets": 10,
+          "reps": "10",
+          "load": null,
+          "last_best": "100 total",
+          "notes": "Full straight body line, maintain form."
+        }
+      ]
+    },
+    {
+      "id": "block3",
+      "name": "Core & Carry",
+      "rest_seconds": 90,
+      "instructions": "3 rounds with 90 sec rest. Focus on stability and breath control.",
+      "apple_watch": "Core",
+      "exercises": [
+        {
+          "name": "Farmer Carry",
+          "type": "lift",
+          "sets": 3,
+          "reps": "100m",
+          "load": "50 lbs",
+          "last_best": null,
+          "notes": "Grip from core. Short, quick steps, strong posture."
+        },
+        {
+          "name": "Plank Hold",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "30 sec",
+          "load": null,
+          "last_best": null,
+          "notes": "Weighted optional. Braced and breathing control."
+        },
+        {
+          "name": "Ab Roller",
+          "type": "bodyweight",
+          "sets": 3,
+          "reps": "12",
+          "load": null,
+          "last_best": null,
+          "notes": "Controlled rollouts, hips tucked."
+        }
+      ]
+    }
+  ]
+}
