@@ -1,1 +1,144 @@
-{"date":"2026-1-18","title":"Operation Armageddon","notes":"Body focus arm day with HIIT intensity. Primary: biceps / triceps. Secondary: metabolic conditioning.","warmup":{"description":"Run and dynamic warmup","items":["Treadmill Run (5 min incline, build to pace)","Dynamic shoulder circles","banded triceps stretch","arm swings"]},"blocks":[{"id":"block1","name":"Iron Circuit","rest_seconds":"60","instructions":"Alternate push/pull. 60 sec rest between supersets.","apple_watch":"Barbell Works","exercises":[{"name":"Barbell Curl","type":"lift","sets":4,"reps":10,"load":"75 lsb","last_best":null,"notes":"Load: (75-45)/2=15 per side -> 10 +5. Form: full ROM."},{"name":"Close-Grip Bench Press","type":"lift","sets":4,"reps":8,"load":"135 lsb","last_best":null,"notes":"Load: (135-45)/2=45 per side -> 1 45s. Elbows in, low chest path."},{"name":"Dumbbell Hammer Curl","type":"lift","sets":4,"reps":12,"load":"35 lsb","last_best":null,"notes":"Neutral grip, strict form."},{"name":"Dumbbell Overhead Triceps Extension","type":"lift","sets":4,"reps":12,"load":"45 lsb","last_best":null,"notes":"Single DB, both hands above head. Full range."}]},{"id":"block2","name":"HIIT Meltdown","rest_seconds":"45","instructions":"4 rounds for time - target 12-14 min.","apple_watch":"High Intensity Interval","exercises":[{"name":"Kettlebell Swings","type":"bodyweight","sets":4,"reps":15,"load":"45 lsb","last_best":null,"notes":"Full hypextension."},{"name":"Burpees","type":"bodyweight","sets":4,"reps":10,"load":null,"last_best":null,"notes":"Total body movement, fast transition."},{"name":"Dumbbell Snatches","type":"bodyweight","sets":4,"reps":10,"load":"45 lsb","last_best":null,"notes":"Five each arm."},{"name":"Jump Rope","type":"bodyweight","sets":4,"reps":"60 sec","load":null,"last_best":null,"notes":"Fast singles or doubles."}]},{"id":"block3","name":"Pump Protocol","rest_seconds":"30","instructions":"3 rounds minimal rest.","apple_watch":"Pump Finisher","exercises":[{"name":"BB 21s (Curls)","type":"lift","sets":3,"reps":21,"load":null,"last_best":null,"notes":"Curl early set; 7 bottom, 7 top, 7full straight."},{"name":"Band Triceps Pressdowns","type":"bodyweight","sets":3,"reps":20,"load":null,"last_best":null,"notes":"Use light to moderate recoil."},{"name":"Plank Shoulder Taps","type":"bodyweight","sets":3,"reps":30,"load":null,"last_best":null,"notes":"Control and core alignment."}]}]}
+{
+  "date": "2026-01-24",
+  "title": "Protocol Snow-Proof (No Back Regrets)",
+  "notes": "Solid 60 min session. Back-friendly (no heavy hinge) to stay fresh for snow shoveling and Sculpt later. Tomorrow can go heavy/long.",
+  "warmup": {
+    "description": "Start with 2-mile run then dynamic reset (not logged as warmup work)",
+    "items": [
+      "Treadmill run: 2 miles @ 1% incline",
+      "Leg swings front/side x10/leg",
+      "Walking lunges x10/side",
+      "T-spine rotations x8/side",
+      "Scap push-ups x10",
+      "Band pull-aparts x20"
+    ]
+  },
+  "blocks": [
+    {
+      "id": "block0",
+      "name": "2-Mile Run",
+      "rest_seconds": 0,
+      "instructions": "Not a time trial. Ramp 0.5 mi easy, 1.0 mi steady, 0.5 mi strong but controlled.",
+      "apple_watch": "Indoor Run",
+      "exercises": [
+        {
+          "name": "Run - 2 miles",
+          "type": "run",
+          "sets": 1,
+          "reps": "2.00 mi",
+          "load": "1% incline",
+          "last_best": "16:00 @ 1%",
+          "notes": "Target today: 16:30-18:00. Smooth cadence, relaxed shoulders."
+        }
+      ]
+    },
+    {
+      "id": "block1",
+      "name": "Upper + Single-Leg Strength",
+      "rest_seconds": 75,
+      "instructions": "4 rounds quality. Rest 60-90 sec between rounds.",
+      "apple_watch": "Strength Training",
+      "exercises": [
+        {
+          "name": "Dumbbell Bench Press",
+          "type": "lift",
+          "sets": 4,
+          "reps": 10,
+          "load": "45 lb DBs",
+          "last_best": "",
+          "notes": "Controlled touch, full lockout."
+        },
+        {
+          "name": "Chest-Supported DB Row (incline bench)",
+          "type": "lift",
+          "sets": 4,
+          "reps": 12,
+          "load": "45 lb DBs",
+          "last_best": "",
+          "notes": "Chest glued to bench. No torso swing."
+        },
+        {
+          "name": "DB Step-Ups (24 inch box)",
+          "type": "lift",
+          "sets": 4,
+          "reps": "8/leg",
+          "load": "45 lb DBs",
+          "last_best": "45 lb DBs",
+          "notes": "Full foot on box. Drive through midfoot. No bouncing."
+        },
+        {
+          "name": "Pallof Press (band)",
+          "type": "bodyweight",
+          "sets": 4,
+          "reps": "12/side",
+          "load": null,
+          "last_best": "",
+          "notes": "2-sec pause each rep. Ribs down, glutes on."
+        }
+      ]
+    },
+    {
+      "id": "block2",
+      "name": "HRP + Shoulder EMOM",
+      "rest_seconds": 0,
+      "instructions": "EMOM 12. Odd minutes: HRP. Even minutes: DB Z-Press. Pick loads you can hold all rounds.",
+      "apple_watch": "Functional Strength",
+      "exercises": [
+        {
+          "name": "Hand-Release Pushups (HRP)",
+          "type": "bodyweight",
+          "sets": 6,
+          "reps": 12,
+          "load": null,
+          "last_best": "",
+          "notes": "Odd minutes only. Stop 1-2 reps shy of failure."
+        },
+        {
+          "name": "DB Z-Press (seated on floor)",
+          "type": "lift",
+          "sets": 6,
+          "reps": 8,
+          "load": "30 lb DBs",
+          "last_best": "",
+          "notes": "Even minutes only. Tall posture, no lean-back."
+        }
+      ]
+    },
+    {
+      "id": "block3",
+      "name": "Carry + Rope Finisher",
+      "rest_seconds": 30,
+      "instructions": "6 rounds. Move crisp, no grinding.",
+      "apple_watch": "HIIT",
+      "exercises": [
+        {
+          "name": "Jump Rope",
+          "type": "bodyweight",
+          "sets": 6,
+          "reps": "30 sec",
+          "load": null,
+          "last_best": "",
+          "notes": "Fast singles (or doubles if clean)."
+        },
+        {
+          "name": "Suitcase Carry (right)",
+          "type": "lift",
+          "sets": 6,
+          "reps": "30 sec",
+          "load": "45 lb KB",
+          "last_best": "",
+          "notes": "Tall posture. No side bend."
+        },
+        {
+          "name": "Suitcase Carry (left)",
+          "type": "lift",
+          "sets": 6,
+          "reps": "30 sec",
+          "load": "45 lb KB",
+          "last_best": "",
+          "notes": "Tall posture. No side bend."
+        }
+      ]
+    }
+  ]
+}
